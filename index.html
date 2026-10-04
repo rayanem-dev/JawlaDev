@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="fr" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RayaNet</title>
+<meta name="description" content="Portail des applications et releases.">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="top">
+  <a class="logo" href="#" id="brand"></a>
+  <nav>
+    <a href="#apps" data-i="apps"></a>
+    <a href="#upcoming" data-i="upcoming"></a>
+    <a href="#releases" data-i="releases"></a>
+    <a href="#contact" data-i="contact"></a>
+    <select id="lang" aria-label="Language">
+      <option value="fr">FR</option><option value="en">EN</option><option value="ar">AR</option>
+    </select>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1 data-i="heroTitle"></h1>
+  <p data-i="heroSub"></p>
+  <a class="btn" href="#contact" data-i="demo"></a>
+</section>
+
+<main>
+  <section id="apps"><h2 data-i="apps"></h2><div class="grid" id="appGrid"></div></section>
+  <section id="upcoming"><h2 data-i="upcoming"></h2><div class="grid" id="upGrid"></div></section>
+  <section id="releases"><h2 data-i="releases"></h2><div id="relList"></div></section>
+  <section id="contact"><h2 data-i="contact"></h2><p data-i="contactText"></p>
+    <a class="btn" id="mail" href="#"></a></section>
+</main>
+<footer>© <span id="year"></span> <span id="brand2"></span></footer>
+<script src="assets/data.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>
