@@ -21,6 +21,13 @@
     $("#mail").textContent = P.contactEmail;
     $("#mail").href = "mailto:" + P.contactEmail;
 
+    $("#svcGrid").innerHTML = P.services.map((x) => `
+      <div class="card"><h3>${esc(T(x.name, lang))}</h3><p>${esc(T(x.desc, lang))}</p></div>`).join("");
+    $("#whyGrid").innerHTML = P.why.map((x) => `
+      <div class="card why"><h3>${esc(T(x.name, lang))}</h3><p>${esc(T(x.desc, lang))}</p></div>`).join("");
+    $("#stepList").innerHTML = P.process.map((x) => `
+      <li><b>${esc(T(x.name, lang))}</b><span>${esc(T(x.desc, lang))}</span></li>`).join("");
+
     $("#appGrid").innerHTML = P.apps.map((a) => `
       <div class="card"><div class="ico">${a.icon}</div><h3>${esc(a.name)}</h3>
       <p>${esc(T(a.tagline, lang))}</p><p>${esc(T(a.desc, lang))}</p>

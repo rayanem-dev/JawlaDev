@@ -29,3 +29,9 @@ h2{margin:0 0 20px;border-inline-start:4px solid var(--warm);padding-inline-star
 .rel ul{padding-inline-start:18px;margin:0}
 .tag{background:var(--bg);color:var(--accent);border-radius:6px;padding:1px 8px;font-size:.85rem;margin-inline-end:8px}
 footer{text-align:center;color:var(--muted);padding:30px}
+.card.why{border-top:3px solid var(--warm)}
+.sub{margin:32px 0 14px;color:var(--muted);font-size:1rem;text-transform:uppercase;letter-spacing:.08em}
+.steps{list-style:none;counter-reset:s;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;padding:0;margin:0}
+.steps li{counter-increment:s;background:var(--bg2);border-radius:var(--r);padding:16px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.steps li::before{content:counter(s);color:var(--accent);font-weight:800;font-size:1.4rem}
+.steps span{color:var(--muted)}
