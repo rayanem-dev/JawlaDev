@@ -21,8 +21,10 @@
     $("#mail").textContent = P.contactEmail;
     $("#mail").href = "mailto:" + P.contactEmail;
 
-    $("#svcGrid").innerHTML = P.services.map((x) => `
-      <div class="card"><h3>${esc(T(x.name, lang))}</h3><p>${esc(T(x.desc, lang))}</p></div>`).join("");
+    $("#svcGrid").innerHTML = ["dev", "online", "infra"].map((g) => `
+      <h3 class="sub">${t["g_" + g]}</h3>
+      <div class="grid">${P.services.filter((x) => x.group === g).map((x) => `
+        <div class="card"><h3>${esc(T(x.name, lang))}</h3><p>${esc(T(x.desc, lang))}</p></div>`).join("")}</div>`).join("");
     $("#whyGrid").innerHTML = P.why.map((x) => `
       <div class="card why"><h3>${esc(T(x.name, lang))}</h3><p>${esc(T(x.desc, lang))}</p></div>`).join("");
     $("#stepList").innerHTML = P.process.map((x) => `

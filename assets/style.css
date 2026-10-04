@@ -35,3 +35,4 @@ footer{text-align:center;color:var(--muted);padding:30px}
 .steps li{counter-increment:s;background:var(--bg2);border-radius:var(--r);padding:16px;display:flex;flex-direction:column;gap:4px;min-width:0}
 .steps li::before{content:counter(s);color:var(--accent);font-weight:800;font-size:1.4rem}
 .steps span{color:var(--muted)}
+#svcGrid .sub:first-child{margin-top:0}#svcGrid .grid{margin-bottom:8px}
