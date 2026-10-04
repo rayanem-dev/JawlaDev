@@ -2,7 +2,9 @@
   const P = window.PORTAL;
   const $ = (s) => document.querySelector(s);
   const T = (o, l) => (o && typeof o === "object" ? o[l] || o.fr : o);
-  let lang = localStorage.getItem("lang") || (navigator.language || "fr").slice(0, 2);
+  let lang;
+  try { lang = localStorage.getItem("lang"); } catch (e) {}
+  lang = lang || (navigator.language || "fr").slice(0, 2);
   if (!P.i18n[lang]) lang = "fr";
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 
@@ -40,6 +42,6 @@
     $("#relList").innerHTML = blocks.join("");
   }
 
-  $("#lang").addEventListener("change", (e) => { lang = e.target.value; localStorage.setItem("lang", lang); render(); });
+  $("#lang").addEventListener("change", (e) => { lang = e.target.value; try { localStorage.setItem("lang", lang); } catch (e) {} render(); });
   render();
 })();
