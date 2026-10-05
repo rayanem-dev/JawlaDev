@@ -56,7 +56,7 @@
         <div class="shots">${shots(a, t)}</div>
       </article>`).join("");
 
-    $("#svcGrid").innerHTML = ["dev", "online", "infra"].map((g) => `
+    $("#svcGrid").innerHTML = ["dev", "online"].map((g) => `
       <h3 class="sub">${t["g_" + g]}</h3>
       <div class="list">${P.services.filter((x) => x.group === g).map((x) => `
         <div class="item"><h3>${esc(T(x.name, lang))}</h3><p>${esc(T(x.desc, lang))}</p></div>`).join("")}</div>`).join("");

@@ -49,23 +49,7 @@ window.PORTAL = {
     { group: "online", name: { fr: "Hébergement, nom de domaine et e-mail pro", en: "Hosting, domain name and business email", ar: "الاستضافة واسم النطاق والبريد المهني" },
       desc: { fr: "Votre site en ligne avec une adresse à votre nom et des e-mails professionnels, sans vous occuper de la technique.",
               en: "Your site online with an address in your name and professional emails, without handling the technical side.",
-              ar: "موقعك على الإنترنت بعنوان باسمك وبريد مهني دون أن تهتم بالجانب التقني." } },
-    { group: "infra", name: { fr: "Réseaux informatiques et téléphonie", en: "Computer networks and telephony", ar: "الشبكات المعلوماتية والهاتف" },
-      desc: { fr: "Installation de réseaux d'entreprise et de standards téléphoniques, avec interconnexion entre les bâtiments.",
-              en: "Installation of company networks and phone systems, with links between buildings.",
-              ar: "تركيب شبكات المؤسسات والمقاسم الهاتفية مع الربط بين المباني." } },
-    { group: "infra", name: { fr: "Fibre optique et télécoms", en: "Fiber optics and telecoms", ar: "الألياف البصرية والاتصالات" },
-      desc: { fr: "Fourniture, pose, raccordement et maintenance de réseaux en fibre optique.",
-              en: "Supply, installation, connection and maintenance of fiber optic networks.",
-              ar: "توريد وتمديد وتوصيل وصيانة شبكات الألياف البصرية." } },
-    { group: "infra", name: { fr: "Matériel informatique", en: "IT equipment", ar: "العتاد المعلوماتي" },
-      desc: { fr: "Fourniture d'ordinateurs, de pointeuses et d'équipements pour vos bureaux, installés et prêts à l'emploi.",
-              en: "Supply of computers, time clocks and office equipment, installed and ready to use.",
-              ar: "توريد حواسيب وأجهزة الحضور ومعدات المكاتب جاهزة للاستعمال ومركّبة." } },
-    { group: "infra", name: { fr: "Formation, support et mises à jour", en: "Training, support and updates", ar: "التدريب والدعم والتحديثات" },
-      desc: { fr: "Manuel en français et en arabe, prise en main de votre équipe, corrections et nouvelles fonctions après la livraison.",
-              en: "Manual in French and Arabic, team onboarding, fixes and new features after delivery.",
-              ar: "دليل بالفرنسية والعربية وتأهيل فريقك وإصلاحات وميزات جديدة بعد التسليم." } }
+              ar: "موقعك على الإنترنت بعنوان باسمك وبريد مهني دون أن تهتم بالجانب التقني." } }
   ],
 
   // Arguments (modifiable)
@@ -123,7 +107,7 @@ window.PORTAL = {
           { src: "assets/img/horeca-rapports-resultat.jpg", alt: { fr: "Rapports filtrables par période et par site", en: "Reports filterable by period and site", ar: "تقارير قابلة للتصفية حسب الفترة والموقع" } },
           { src: "assets/img/horeca-langue-arabe.jpg", alt: { fr: "Interface en arabe", en: "Arabic interface", ar: "الواجهة بالعربية" } }
       ],
-      links: [{ href: "assets/docs/Horeca-Presentation.pptx", type: "deck" }, { href: "assets/docs/Horeca-Manuel-FR.pdf", type: "manual", label: { fr: "Manuel français (PDF)", en: "French manual (PDF)", ar: "الدليل بالفرنسية (PDF)" } }, { href: "assets/docs/Horeca-Manuel-AR.pdf", type: "manual", label: { fr: "Manuel arabe (PDF)", en: "Arabic manual (PDF)", ar: "الدليل بالعربية (PDF)" } }, { href: "assets/video/horeca-guide.webm", type: "video", label: { fr: "Voir la vidéo", en: "Watch the video", ar: "شاهد الفيديو" } }],
+      links: [],
       icon: "🍽️", url: "",
       name: "Horeca",
       tagline: { fr: "La gestion complète d'une restauration collective multi-sites", en: "Complete multi-site catering management", ar: "إدارة متكاملة للإطعام الجماعي متعدد المواقع" },
@@ -131,7 +115,7 @@ window.PORTAL = {
               en: "Purchasing, purchase orders, stock, orders and receipts per site, cash, inventories, losses, incidents, PDF/Excel reports, manager dashboard. French and Arabic interface.",
               ar: "المشتريات وطلبيات الشراء والمخزون والطلبات والاستلام لكل موقع، الصندوق والجرد والخسائر والحوادث، تقارير PDF/Excel ولوحة قيادة للمسيّر. واجهة بالفرنسية والعربية." },
       releases: [
-        { version: "v21", date: "2026-10", notes: { fr: "Démonstration complète de bout en bout et kit commercial (manuel FR/AR, vidéo).", en: "Full end-to-end demo and sales kit (FR/AR manual, video).", ar: "عرض تجريبي كامل وحقيبة تجارية (دليل FR/AR وفيديو)." } },
+        { version: "v21", date: "2026-10", notes: { fr: "Démonstration complète de bout en bout.", en: "Complete end-to-end demo.", ar: "عرض تجريبي كامل من البداية إلى النهاية." } },
         { version: "v20", date: "2026-10", notes: { fr: "Application installable sur l'écran d'accueil (PWA).", en: "Installable on the home screen (PWA).", ar: "تطبيق قابل للتثبيت على الشاشة الرئيسية." } },
         { version: "v16", date: "2026-10", notes: { fr: "Signature électronique.", en: "Electronic signature.", ar: "التوقيع الإلكتروني." } }
       ] },
@@ -169,15 +153,15 @@ window.PORTAL = {
   ],
 
   i18n: {
-    fr: { l_deck: "Présentation (PowerPoint)", l_manual: "Manuel (PDF)", shotsNote: "Captures d'écran avec des données fictives", write: "Écrire", features: "Fonctions", soon: "Bientôt", g_dev: "Logiciels et sites", g_online: "Présence en ligne et communication", g_infra: "Réseaux, matériel et accompagnement", services: "Nos services", why: "Pourquoi nous choisir", process: "Comment on travaille", apps: "Nos applications", upcoming: "En développement", releases: "Dernières versions", contact: "Contact",
+    fr: { l_deck: "Présentation (PowerPoint)", l_manual: "Manuel (PDF)", shotsNote: "Captures d'écran avec des données fictives", write: "Écrire", features: "Fonctions", soon: "Bientôt", g_dev: "Logiciels et sites", g_online: "Présence en ligne et communication", services: "Nos services", why: "Pourquoi nous choisir", process: "Comment on travaille", apps: "Nos applications", upcoming: "En développement", releases: "Dernières versions", contact: "Contact",
           heroTitle: "Sites web, présentations et logiciels SaaS", heroSub: "Livrés rapidement, avec un rendu professionnel, du premier échange à la mise en service.",
           demo: "Demander une démo", open: "Ouvrir", download: "Télécharger", progress: "Avancement", noRel: "Aucune version pour le moment.",
           contactText: "Une question, une démo ? Écrivez-nous." },
-    en: { l_deck: "Presentation (PowerPoint)", l_manual: "Manual (PDF)", shotsNote: "Screenshots with sample data", write: "Write to us", features: "Features", soon: "Soon", g_dev: "Software and websites", g_online: "Online presence and communication", g_infra: "Networks, equipment and support", services: "Our services", why: "Why choose us", process: "How we work", apps: "Our applications", upcoming: "In development", releases: "Latest releases", contact: "Contact",
+    en: { l_deck: "Presentation (PowerPoint)", l_manual: "Manual (PDF)", shotsNote: "Screenshots with sample data", write: "Write to us", features: "Features", soon: "Soon", g_dev: "Software and websites", g_online: "Online presence and communication", services: "Our services", why: "Why choose us", process: "How we work", apps: "Our applications", upcoming: "In development", releases: "Latest releases", contact: "Contact",
           heroTitle: "Websites, presentations and SaaS software", heroSub: "Delivered fast, with a professional finish, from the first conversation to go-live.",
           demo: "Request a demo", open: "Open", download: "Download", progress: "Progress", noRel: "No release yet.",
           contactText: "A question, a demo? Write to us." },
-    ar: { l_deck: "العرض التقديمي (PowerPoint)", l_manual: "الدليل (PDF)", shotsNote: "لقطات شاشة ببيانات تجريبية", write: "راسلنا", features: "المزايا", soon: "قريبًا", g_dev: "البرمجيات والمواقع", g_online: "الحضور الرقمي والتواصل", g_infra: "الشبكات والعتاد والمرافقة", services: "خدماتنا", why: "لماذا نحن", process: "كيف نعمل", apps: "تطبيقاتنا", upcoming: "قيد التطوير", releases: "آخر الإصدارات", contact: "اتصل بنا",
+    ar: { l_deck: "العرض التقديمي (PowerPoint)", l_manual: "الدليل (PDF)", shotsNote: "لقطات شاشة ببيانات تجريبية", write: "راسلنا", features: "المزايا", soon: "قريبًا", g_dev: "البرمجيات والمواقع", g_online: "الحضور الرقمي والتواصل", services: "خدماتنا", why: "لماذا نحن", process: "كيف نعمل", apps: "تطبيقاتنا", upcoming: "قيد التطوير", releases: "آخر الإصدارات", contact: "اتصل بنا",
           heroTitle: "مواقع وعروض تقديمية وبرمجيات SaaS", heroSub: "تسليم سريع ومظهر احترافي، من أول حوار حتى الإطلاق.",
           demo: "اطلب عرضًا تجريبيًا", open: "فتح", download: "تحميل", progress: "التقدّم", noRel: "لا يوجد إصدار بعد.",
           contactText: "سؤال أو عرض تجريبي؟ راسلنا." }
