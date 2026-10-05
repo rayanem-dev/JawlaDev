@@ -6,49 +6,18 @@
 <title>RayaNet</title>
 <meta name="description" content="Sites web, présentations et logiciels SaaS. Coursup, Horeca, Sijil.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
-<meta name="theme-color" content="#FFFFFF">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Cairo:wght@400;600;800&family=Plus+Jakarta+Sans:wght@400;500;700&display=swap">
+<meta name="theme-color" content="#1F2230">
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-<header class="top">
-  <a class="logo" href="#" id="brand"></a>
-  <nav>
-    <a href="#apps" data-i="apps"></a>
-    <a href="#services" data-i="services"></a>
-    <a href="#upcoming" data-i="upcoming"></a>
-    <a href="#contact" data-i="contact"></a>
-    <select id="lang" aria-label="Language">
-      <option value="fr">FR</option><option value="en">EN</option><option value="ar">AR</option>
-    </select>
-  </nav>
+<header class="bar">
+  <a class="brand" href="#" id="brand"><span class="mark">R</span><b id="brandName"></b></a>
+  <span class="crumb" id="crumb"></span>
+  <select id="lang" aria-label="Language">
+    <option value="fr">FR</option><option value="en">EN</option><option value="ar">AR</option>
+  </select>
 </header>
-
-<section class="hero">
-  <div class="hero-text">
-    <h1 data-i="heroTitle"></h1>
-    <p data-i="heroSub"></p>
-    <a class="btn" href="#contact" data-i="demo"></a>
-    <a class="btn ghost" href="#apps" data-i="apps"></a>
-  </div>
-  <div class="hero-art" aria-hidden="true">
-    <div class="frame"><i></i><i></i><i></i><img src="assets/img/sijil-12-global-mois.jpg" alt=""></div>
-    <div class="phone"><img src="assets/img/coursup-1.jpg" alt=""></div>
-  </div>
-</section>
-
-<main>
-  <section id="apps"><h2 data-i="apps"></h2><div id="appList"></div></section>
-  <section id="services"><h2 data-i="services"></h2><div id="svcGrid"></div></section>
-  <section id="why"><h2 data-i="why"></h2><div class="trio" id="whyGrid"></div>
-    <h3 class="sub" data-i="process"></h3><ol class="steps" id="stepList"></ol></section>
-  <section id="upcoming"><h2 data-i="upcoming"></h2><div class="grid" id="upGrid"></div></section>
-  <section id="releases"><h2 data-i="releases"></h2><div id="relList"></div></section>
-  <section id="contact" class="contact"><h2 data-i="contact"></h2><p data-i="contactText"></p>
-    <p class="mail" id="mail"></p></section>
-</main>
+<main id="view"></main>
 <footer>© <span id="year"></span> <span id="brand2"></span></footer>
 <div id="lb" class="lb" hidden><button id="lbx" aria-label="Close">×</button><div id="lbc"></div></div>
 <script src="assets/data.js"></script>
