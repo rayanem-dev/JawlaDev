@@ -94,10 +94,16 @@
   }
 
   function contactView(t) {
-    const has = !!P.contactEmail;
-    return `<div class="page-h"><span class="ic" style="--c:#E5584F">✉️</span><div><h1>${t.contact}</h1><p>${esc(has ? t.contactText : t.contactSoon)}</p></div></div>
-      ${has ? `<p class="mail">${esc(P.contactEmail)}</p>
-      <div class="acts"><button class="btn" id="copy" style="--c:#E5584F">${t.copy}</button></div>` : ""}`;
+    const digits = (n) => n.replace(/[^0-9+]/g, "");
+    const line = (label, num, href, btn, color) => `
+      <div class="cline"><div class="cinfo"><span class="cl">${label}</span><bdi dir="ltr" class="cnum">${esc(num)}</bdi></div>
+        <div class="acts"><a class="btn" style="--c:${color}" href="${esc(href)}">${btn}</a>
+        <button class="btn ghost" style="--c:${color}" data-copy="${esc(num)}">${t.copy}</button></div></div>`;
+    const rows = [];
+    if (P.contactPhone) rows.push(line(t.phone, P.contactPhone, "tel:" + digits(P.contactPhone), t.call, "#E5584F"));
+    if (P.contactWhatsApp) rows.push(line("WhatsApp", P.contactWhatsApp, "https://wa.me/" + digits(P.contactWhatsApp).replace("+", ""), t.chat, "#1FA855"));
+    if (P.contactEmail) rows.push(line("E-mail", P.contactEmail, "mailto:" + P.contactEmail, t.write, "#E5584F"));
+    return `<div class="page-h"><span class="ic" style="--c:#E5584F">✉️</span><div><h1>${t.contact}</h1><p>${esc(rows.length ? t.contactText : t.contactSoon)}</p></div></div>${rows.join("")}`;
   }
 
   function render() {
@@ -130,10 +136,10 @@
     if (sv) { svc = +sv.dataset.svc; render(); return; }
     const z = e.target.closest("[data-zoom]");
     if (z) { lbc.innerHTML = `<img src="${esc(z.dataset.zoom)}" alt="">`; lb.hidden = false; return; }
-    if (e.target.id === "copy") {
-      const b = e.target, t = P.i18n[lang];
-      const done = () => { b.textContent = t.copied; };
-      try { navigator.clipboard.writeText(P.contactEmail).then(done, () => {}); } catch (x) {}
+    const cp = e.target.closest("[data-copy]");
+    if (cp) {
+      const t = P.i18n[lang];
+      try { navigator.clipboard.writeText(cp.dataset.copy).then(() => { cp.textContent = t.copied; }, () => {}); } catch (x) {}
       return;
     }
     if (e.target === lb || e.target.id === "lbx") closeLb();

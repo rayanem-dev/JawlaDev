@@ -77,3 +77,7 @@ a:focus-visible,button:focus-visible,select:focus-visible{outline:3px solid var(
 .pages{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin:16px 0}
 .pg{padding:0;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--surface);cursor:zoom-in}
 .pg img{display:block;width:100%;height:auto}
+.cline{display:flex;align-items:center;justify-content:space-between;gap:12px 20px;flex-wrap:wrap;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 18px;margin-top:12px}
+.cinfo{display:flex;flex-direction:column}.cl{color:var(--muted);font-size:.85rem}
+.cnum{font-size:1.35rem;font-weight:700;user-select:all}
+.cline .acts{margin:0}
