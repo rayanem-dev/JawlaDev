@@ -94,9 +94,10 @@
   }
 
   function contactView(t) {
-    return `<div class="page-h"><span class="ic" style="--c:#E5584F">✉️</span><div><h1>${t.contact}</h1><p>${esc(t.contactText)}</p></div></div>
-      <p class="mail">${esc(P.contactEmail)}</p>
-      <div class="acts"><button class="btn" id="copy" style="--c:#E5584F">${t.copy}</button></div>`;
+    const has = !!P.contactEmail;
+    return `<div class="page-h"><span class="ic" style="--c:#E5584F">✉️</span><div><h1>${t.contact}</h1><p>${esc(has ? t.contactText : t.contactSoon)}</p></div></div>
+      ${has ? `<p class="mail">${esc(P.contactEmail)}</p>
+      <div class="acts"><button class="btn" id="copy" style="--c:#E5584F">${t.copy}</button></div>` : ""}`;
   }
 
   function render() {
