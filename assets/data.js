@@ -132,7 +132,7 @@ window.PORTAL = {
           { src: "assets/img/sijil-60-agent-accueil.jpg", alt: { fr: "Espace de l'agent", en: "Agent space", ar: "فضاء العون" } },
           { src: "assets/img/sijil-92-arabe.jpg", alt: { fr: "Interface en arabe", en: "Arabic interface", ar: "الواجهة بالعربية" } }
       ],
-      links: [{ href: "assets/docs/Sijil-Presentation.pptx", type: "deck" }, { href: "assets/docs/Sijil-Manuel.pdf", type: "manual" }],
+      links: [{ href: "assets/docs/Sijil-Presentation.pptx", type: "deck" }],
       icon: "📒", url: "",
       name: "Sijil",
       tagline: { fr: "La gestion du temps de travail du personnel en rotation", en: "Working time management for rotating staff", ar: "تسيير وقت العمل للمستخدمين بنظام المناوبة" },
