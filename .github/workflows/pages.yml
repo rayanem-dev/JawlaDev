@@ -1,7 +1,7 @@
 name: Deploy portal
 on:
   push:
-    branches: [main]
+    branches: [main, claude/portail-apps-releases-4yiztm]
   workflow_dispatch:
 permissions:
   contents: read
@@ -12,6 +12,8 @@ concurrency:
   cancel-in-progress: true
 jobs:
   deploy:
+    # Pages n'accepte que la branche par défaut : les autres branches sont ignorées sans erreur
+    if: github.ref_name == github.event.repository.default_branch
     runs-on: ubuntu-latest
     environment:
       name: github-pages
