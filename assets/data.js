@@ -116,8 +116,14 @@ window.PORTAL = {
           { fr: "Commandes, réceptions et inventaires pour chaque site", en: "Orders, receipts and inventories for each site", ar: "الطلبات والاستلام والجرد لكل موقع" },
           { fr: "Caisse, pertes, incidents et rapport quotidien", en: "Cash, losses, incidents and daily report", ar: "الصندوق والخسائر والحوادث والتقرير اليومي" },
           { fr: "Rapports PDF et Excel, interface en français et en arabe", en: "PDF and Excel reports, French and Arabic interface", ar: "تقارير PDF وExcel وواجهة بالفرنسية والعربية" }],
-      shots: [],
-      links: [],
+      shots: [
+          { src: "assets/img/horeca-dashboard.jpg", alt: { fr: "Tableau de bord : jauges et points à traiter", en: "Dashboard: gauges and items to handle", ar: "لوحة القيادة: مؤشرات ومهام للمعالجة" } },
+          { src: "assets/img/horeca-bons-commande.jpg", alt: { fr: "Bons de commande fournisseurs", en: "Supplier purchase orders", ar: "طلبيات الشراء للموردين" } },
+          { src: "assets/img/horeca-caisse-suivi.jpg", alt: { fr: "Caisse de chaque site", en: "Cash of each site", ar: "صندوق كل موقع" } },
+          { src: "assets/img/horeca-rapports-resultat.jpg", alt: { fr: "Rapports filtrables par période et par site", en: "Reports filterable by period and site", ar: "تقارير قابلة للتصفية حسب الفترة والموقع" } },
+          { src: "assets/img/horeca-langue-arabe.jpg", alt: { fr: "Interface en arabe", en: "Arabic interface", ar: "الواجهة بالعربية" } }
+      ],
+      links: [{ href: "assets/docs/Horeca-Presentation.pptx", type: "deck" }, { href: "assets/docs/Horeca-Manuel-FR.pdf", type: "manual", label: { fr: "Manuel français (PDF)", en: "French manual (PDF)", ar: "الدليل بالفرنسية (PDF)" } }, { href: "assets/docs/Horeca-Manuel-AR.pdf", type: "manual", label: { fr: "Manuel arabe (PDF)", en: "Arabic manual (PDF)", ar: "الدليل بالعربية (PDF)" } }, { href: "assets/video/horeca-guide.webm", type: "video", label: { fr: "Voir la vidéo", en: "Watch the video", ar: "شاهد الفيديو" } }],
       icon: "🍽️", url: "",
       name: "Horeca",
       tagline: { fr: "La gestion complète d'une restauration collective multi-sites", en: "Complete multi-site catering management", ar: "إدارة متكاملة للإطعام الجماعي متعدد المواقع" },
