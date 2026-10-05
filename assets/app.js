@@ -20,6 +20,7 @@
       <div class="tiles">
         ${P.apps.map((a) => tile(a.id, a.color, a.icon, a.name)).join("")}
         ${P.upcoming.map((u) => tile(u.id, "#59606F", `<span class="ring" style="--p:${u.progress}"><b>${u.progress}%</b></span>`, T(u.name, lang))).join("")}
+        ${tile("works", "#2F7D5B", "🗂️", t.works)}
         ${tile("services", "#F59E0B", "💼", t.services)}
         ${tile("contact", "#E5584F", "✉️", t.contact)}
       </div>`;
@@ -64,6 +65,28 @@
       <ol class="steps">${P.process.map((x) => `<li><b>${esc(T(x.name, lang))}</b><span>${esc(T(x.desc, lang))}</span></li>`).join("")}</ol>`;
   }
 
+  function worksView(t) {
+    return `<div class="page-h"><span class="ic" style="--c:#2F7D5B">🗂️</span><div><h1>${t.works}</h1></div></div>
+      <div class="tiles">${P.works.map((w) => tile(w.id, w.color, w.icon, T(w.title, lang))).join("")}</div>`;
+  }
+
+  function workView(w, t) {
+    const sec = (h, body) => `<div class="panel"><h2>${h}</h2>${body}</div>`;
+    const ul = (items) => `<ul class="bul">${items.map((i) => `<li>${esc(T(i, lang))}</li>`).join("")}</ul>`;
+    return `<div style="--c:${w.color}">
+      <div class="page-h"><span class="ic" style="--c:${w.color}">${w.icon}</span>
+        <div><h1>${esc(T(w.title, lang))}</h1><p>${esc(T(w.sector, lang))}</p></div></div>
+      <ul class="pts"><li>${esc(T(w.badge, lang))}</li></ul>
+      <p class="lead">${esc(T(w.summary, lang))}</p>
+      ${w.images.length ? `<div class="pages">${w.images.map((im) => `
+        <button class="pg" data-zoom="${esc(im.src)}"><img src="${esc(im.src)}" alt="${esc(T(im.alt, lang))}"></button>`).join("")}</div>` : ""}
+      ${sec(t.w_ctx, `<p>${esc(T(w.context, lang))}</p>`)}
+      ${sec(t.w_liv, ul(w.deliverables))}
+      ${sec(t.w_content, `<p>${esc(T(w.content, lang))}</p>`)}
+      ${sec(t.w_design, ul(w.design))}
+    </div>`;
+  }
+
   function upView(u) {
     return `<div class="page-h"><span class="ic soon"><span class="ring" style="--p:${u.progress}"><b>${u.progress}%</b></span></span>
       <div><h1>${esc(T(u.name, lang))}</h1><p>${esc(T(u.desc, lang))}</p></div></div>
@@ -84,10 +107,12 @@
     $("#brandName").textContent = P.brand; $("#brand2").textContent = P.brand;
     $("#year").textContent = new Date().getFullYear();
     $("#lang").value = lang;
-    const app = P.apps.find((a) => a.id === r), up = P.upcoming.find((u) => u.id === r);
+    const app = P.apps.find((a) => a.id === r), up = P.upcoming.find((u) => u.id === r), wk = P.works.find((w) => w.id === r);
     let html, name = "";
     if (app) { html = appView(app, t); name = app.name; }
     else if (up) { html = upView(up); name = T(up.name, lang); }
+    else if (wk) { html = workView(wk, t); name = T(wk.title, lang); }
+    else if (r === "works") { html = worksView(t); name = t.works; }
     else if (r === "services") { html = servicesView(t); name = t.services; }
     else if (r === "contact") { html = contactView(t); name = t.contact; }
     else html = home(t);
