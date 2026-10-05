@@ -70,9 +70,17 @@ window.PORTAL = {
     { name: { fr: "Mise en service", en: "Go live", ar: "الإطلاق" }, desc: { fr: "Installation, formation et suivi.", en: "Installation, training and follow-up.", ar: "التثبيت والتدريب والمتابعة." } }
   ],
 
-  // Réalisations (design + rédaction commerciale). "images" reste vide tant que le client n'a pas autorisé la publication.
+  // Réalisations (design + rédaction commerciale). Les visuels sont anonymisés : nom, partenaires, villes et numéro d'agrément masqués.
   works: [
-    { id: "dechets", icon: "♻️", color: "#2F7D5B", images: [],
+    { id: "dechets", icon: "♻️", color: "#2F7D5B", images: [
+          { src: "assets/img/work-dechets-fr-01.jpg", alt: { fr: "Couverture de l'offre en français : un camion devant un site industriel", en: "French cover of the offer: a truck in front of an industrial site", ar: "غلاف العرض بالفرنسية: شاحنة أمام موقع صناعي" } },
+          { src: "assets/img/work-dechets-fr-02.jpg", alt: { fr: "Page de présentation et d'agrément", en: "Company and license presentation page", ar: "صفحة تقديم المؤسسة والاعتماد" } },
+          { src: "assets/img/work-dechets-fr-03.jpg", alt: { fr: "Déchets pris en charge : batteries usagées, métaux ferreux et non ferreux", en: "Waste accepted: used batteries, ferrous and non-ferrous metals", ar: "النفايات المعالجة: البطاريات المستعملة والمعادن الحديدية وغير الحديدية" } },
+          { src: "assets/img/work-dechets-fr-04.jpg", alt: { fr: "Méthode de collecte en cinq étapes et filière de recyclage", en: "Five-step collection method and recycling chain", ar: "منهجية الجمع في خمس مراحل ومسار إعادة التدوير" } },
+          { src: "assets/img/work-dechets-fr-05.jpg", alt: { fr: "Moyens matériels et humains : flotte et équipe", en: "Resources: fleet and team", ar: "الوسائل المادية والبشرية: الأسطول والفريق" } },
+          { src: "assets/img/work-dechets-ar-01.jpg", alt: { fr: "Couverture de la version arabe, lecture de droite à gauche", en: "Cover of the Arabic version, right-to-left", ar: "غلاف النسخة العربية من اليمين إلى اليسار" } },
+          { src: "assets/img/work-dechets-ar-03.jpg", alt: { fr: "Page des déchets pris en charge en arabe", en: "Waste accepted page in Arabic", ar: "صفحة النفايات المعالجة بالعربية" } }
+      ],
       title: { fr: "Offre de service pour un collecteur de déchets agréé", en: "Service offer for a licensed waste collector", ar: "عرض خدمات لجامع نفايات معتمد" },
       sector: { fr: "Environnement · collecte de déchets spéciaux (Algérie)", en: "Environment · special waste collection (Algeria)", ar: "البيئة · جمع النفايات الخاصة (الجزائر)" },
       badge: { fr: "Bilingue FR / AR", en: "Bilingual FR / AR", ar: "ثنائي اللغة FR / AR" },
