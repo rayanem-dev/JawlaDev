@@ -11,16 +11,17 @@
   let svc = -1;    // service sélectionné
 
   const route = () => decodeURIComponent(location.hash.slice(1));
-  const tile = (href, color, inner, name) =>
-    `<a class="tile" href="#${href}"><span class="ic" style="--c:${color}">${inner}</span><span class="tn">${esc(name)}</span></a>`;
+  const tile = (href, color, inner, name, badge) =>
+    `<a class="tile" href="#${href}"><span class="ic" style="--c:${color}">${inner}</span><span class="tn">${esc(name)}</span>${badge || ""}</a>`;
+  const pill = (cls, text) => `<span class="st ${cls}">${cls === "done" ? "✓ " : ""}${esc(text)}</span>`;
 
   function home(t) {
     return `<p class="tag">${esc(t.homeTag)}</p>
       <div class="chips"><span class="chip">${t.w1}</span><span class="chip">${t.w2}</span><span class="chip">${t.w3}</span></div>
       <div class="tiles">
-        ${P.apps.map((a) => tile(a.id, a.color, a.icon, a.name)).join("")}
-        ${P.upcoming.map((u) => tile(u.id, "#59606F", `<span class="ring" style="--p:${u.progress}"><b>${u.progress}%</b></span>`, T(u.name, lang))).join("")}
-        ${tile("works", "#2F7D5B", "🗂️", t.works)}
+        ${P.apps.map((a) => tile(a.id, a.color, a.icon, a.name, pill("done", t.done))).join("")}
+        ${P.upcoming.map((u) => tile(u.id, "#59606F", u.progress == null ? u.icon : `<span class="ring" style="--p:${u.progress}"><b>${u.progress}%</b></span>`, T(u.name, lang), pill("dev", t.inprog))).join("")}
+        ${P.works.map((w) => tile(w.id, w.color, w.icon, T(w.short, lang), pill("done", t.done))).join("")}
         ${tile("services", "#F59E0B", "💼", t.services)}
         ${tile("contact", "#E5584F", "✉️", t.contact)}
       </div>`;
@@ -47,7 +48,7 @@
     }).join("");
     return `<div style="--c:${a.color}">
       <div class="page-h"><span class="ic" style="--c:${a.color}">${a.icon}</span>
-        <div><h1>${esc(a.name)}</h1><p>${esc(T(a.tagline, lang))}</p></div></div>
+        <div><h1>${esc(a.name)}</h1><p>${esc(T(a.tagline, lang))}</p>${pill("done", t.done)}</div></div>
       <div class="acts">${open}${extra}</div>
       <ul class="pts">${a.points.map((p) => `<li>${esc(T(p, lang))}</li>`).join("")}</ul>
       ${shotsView(a, t)}
@@ -76,7 +77,7 @@
     return `<div style="--c:${w.color}">
       <div class="page-h"><span class="ic" style="--c:${w.color}">${w.icon}</span>
         <div><h1>${esc(T(w.title, lang))}</h1><p>${esc(T(w.sector, lang))}</p></div></div>
-      <ul class="pts"><li>${esc(T(w.badge, lang))}</li></ul>
+      <ul class="pts">${w.status === "done" ? `<li>✓ ${esc(t.done)}</li>` : ""}<li>${esc(T(w.badge, lang))}</li></ul>
       <p class="lead">${esc(T(w.summary, lang))}</p>
       ${w.images.length ? `<div class="pages">${w.images.map((im) => `
         <button class="pg" data-zoom="${esc(im.src)}"><img src="${esc(im.src)}" alt="${esc(T(im.alt, lang))}"></button>`).join("")}</div>` : ""}
@@ -87,10 +88,11 @@
     </div>`;
   }
 
-  function upView(u) {
-    return `<div class="page-h"><span class="ic soon"><span class="ring" style="--p:${u.progress}"><b>${u.progress}%</b></span></span>
-      <div><h1>${esc(T(u.name, lang))}</h1><p>${esc(T(u.desc, lang))}</p></div></div>
-      <div class="gauge"><i style="width:${u.progress}%"></i></div>`;
+  function upView(u, t) {
+    const hasP = u.progress != null;
+    return `<div class="page-h"><span class="ic soon">${hasP ? `<span class="ring" style="--p:${u.progress}"><b>${u.progress}%</b></span>` : u.icon}</span>
+      <div><h1>${esc(T(u.name, lang))}</h1>${u.desc ? `<p>${esc(T(u.desc, lang))}</p>` : ""}${pill("dev", t.upcoming)}</div></div>
+      ${hasP ? `<div class="gauge"><i style="width:${u.progress}%"></i></div>` : ""}`;
   }
 
   function contactView(t) {
@@ -117,7 +119,7 @@
     const app = P.apps.find((a) => a.id === r), up = P.upcoming.find((u) => u.id === r), wk = P.works.find((w) => w.id === r);
     let html, name = "";
     if (app) { html = appView(app, t); name = app.name; }
-    else if (up) { html = upView(up); name = T(up.name, lang); }
+    else if (up) { html = upView(up, t); name = T(up.name, lang); }
     else if (wk) { html = workView(wk, t); name = T(wk.title, lang); }
     else if (r === "works") { html = worksView(t); name = t.works; }
     else if (r === "services") { html = servicesView(t); name = t.services; }
