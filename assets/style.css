@@ -90,4 +90,4 @@ a:focus-visible,button:focus-visible,select:focus-visible{outline:3px solid var(
 .page-h .ring b{font-size:.78rem}
 .ic.logo{border:1px solid var(--line)}
 .ic .lg{width:68%;height:68%;object-fit:contain;position:relative;z-index:1}
-.lockup{display:flex;justify-content:center;margin:0 0 8px}.lockup img{height:130px;width:auto;mix-blend-mode:multiply}
+.lockup{display:flex;justify-content:center;margin:0 0 8px}.lockup img{height:150px;width:auto;mix-blend-mode:multiply}
