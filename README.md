@@ -1,4 +1,4 @@
-# RayaNet — portail vitrine
+# JawlaDev — portail vitrine
 
 Vitrine commerciale (FR / EN / AR) des applications : Coursup, Horeca, Sijil, plus les projets en cours avec jauge de progression.
 Site statique, sans framework ni serveur. **Aucun code des applications n'est publié ici** : seulement des descriptions et des notes de version.

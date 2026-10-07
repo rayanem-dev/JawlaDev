@@ -1,6 +1,6 @@
 // ====== TOUT SE MODIFIE ICI : marque, applis, projets en cours, textes ======
 window.PORTAL = {
-  brand: "RayaNet",            // changer en "Jawla Tech" / "JawlaDev" si besoin
+  brand: "JawlaDev",
   contactPhone: "+213 670 77 97 92",      // téléphone public
   contactWhatsApp: "+213 796 08 79 02",  // WhatsApp public
   contactEmail: "",   // adresse professionnelle à publier (laisser vide tant qu'elle n'est pas choisie)

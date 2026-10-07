@@ -1,16 +1,16 @@
 /* Lanceur d'applis : fond gris neutre, barre sombre, une couleur par appli */
-:root{--bg:#EEF0F4;--surface:#FFFFFF;--ink:#1B1D23;--muted:#6B7280;--line:#DADFE8;--bar:#1F2230;--amber:#F5A524;
+:root{--navy:#1B4575;--orange:#EE8A27;--bg:#EEF0F4;--surface:#FFFFFF;--ink:#1B1D23;--muted:#6B7280;--line:#DADFE8;--bar:#1F2230;--amber:#F5A524;
   --font:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;color-scheme:light}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font:400 1rem/1.5 var(--font);min-height:100vh;display:flex;flex-direction:column}
 a{color:inherit}
 button{font:inherit;color:inherit}
-.bar{display:flex;align-items:center;gap:14px;padding:0 20px;height:56px;background:var(--bar);color:#fff;position:sticky;top:0;z-index:5}
-.brand{display:flex;align-items:center;gap:10px;color:#fff;text-decoration:none;font-size:1.1rem}
-.mark{display:grid;place-items:center;width:30px;height:30px;border-radius:8px;background:var(--amber);color:var(--bar);font-weight:800}
-.crumb{color:#B8BDCC;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bar{display:flex;align-items:center;gap:14px;padding:0 20px;height:60px;background:#fff;color:var(--ink);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+.brand{display:flex;align-items:center;gap:8px;color:var(--navy);text-decoration:none;font-size:1.2rem;font-weight:800;letter-spacing:-.01em}
+.mk{height:38px;width:38px;object-fit:contain;mix-blend-mode:multiply}.b2{color:var(--orange)}
+.crumb{color:var(--muted);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .crumb:empty{display:none}
-.bar select{margin-inline-start:auto;background:#2C3042;color:#fff;border:1px solid #3B4057;border-radius:8px;padding:5px 8px;font:inherit}
+.bar select{margin-inline-start:auto;background:#fff;color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:5px 8px;font:inherit}
 .crumb:not(:empty)~select{margin-inline-start:0}
 main{flex:1;width:100%;max-width:1040px;margin:0 auto;padding:28px 20px 40px}
 .tag{text-align:center;color:var(--muted);margin:6px 0 4px;font-size:1.05rem}
@@ -90,3 +90,4 @@ a:focus-visible,button:focus-visible,select:focus-visible{outline:3px solid var(
 .page-h .ring b{font-size:.78rem}
 .ic.logo{border:1px solid var(--line)}
 .ic .lg{width:68%;height:68%;object-fit:contain;position:relative;z-index:1}
+.lockup{display:flex;justify-content:center;margin:0 0 8px}.lockup img{height:130px;width:auto;mix-blend-mode:multiply}

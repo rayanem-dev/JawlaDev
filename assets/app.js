@@ -18,7 +18,8 @@
   const pill = (cls, text) => `<span class="st ${cls}">${cls === "done" ? "✓ " : ""}${esc(text)}</span>`;
 
   function home(t) {
-    return `<p class="tag">${esc(t.homeTag)}</p>
+    return `<div class="lockup"><img src="assets/img/jawladev-logo.png" alt="${esc(P.brand)} — Development Solutions"></div>
+      <p class="tag">${esc(t.homeTag)}</p>
       <div class="chips"><span class="chip">${t.w1}</span><span class="chip">${t.w2}</span><span class="chip">${t.w3}</span></div>
       <div class="tiles">
         ${P.apps.map((a) => tile(a.id, bg(a), icon(a), a.name, pill("done", t.done) + pill(a.stage, t[a.stage]))).join("")}
@@ -115,7 +116,7 @@
     document.documentElement.lang = lang;
     document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
     document.title = P.brand;
-    $("#brandName").textContent = P.brand; $("#brand2").textContent = P.brand;
+    $("#brandName").innerHTML = esc(P.brand).replace(/(Dev|Tech)$/, '<span class="b2">$1</span>'); $("#brand2").textContent = P.brand;
     $("#year").textContent = new Date().getFullYear();
     $("#lang").value = lang;
     const app = P.apps.find((a) => a.id === r), up = P.upcoming.find((u) => u.id === r), wk = P.works.find((w) => w.id === r);
