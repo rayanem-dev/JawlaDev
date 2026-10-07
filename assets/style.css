@@ -84,3 +84,7 @@ a:focus-visible,button:focus-visible,select:focus-visible{outline:3px solid var(
 .st{display:inline-block;border-radius:999px;padding:1px 9px;font-size:.74rem;font-weight:700;line-height:1.5;margin-top:-4px}
 .st.done{background:#DDF3E6;color:#14653A}.st.dev{background:#FFF0D1;color:#8A5A00}
 .page-h .st{margin-top:8px}
+.sts{display:flex;flex-direction:column;align-items:center;gap:4px;margin-top:-4px}.sts .st{margin-top:0}
+.strow{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.strow .st{margin-top:0}
+.st.beta{background:#DCE8FB;color:#1B4F9E}.st.alpha{background:#E9E3FA;color:#4F3FA8}
+.page-h .ring b{font-size:.78rem}
