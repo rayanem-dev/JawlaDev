@@ -11,8 +11,16 @@
   let svc = -1;    // service sélectionné
 
   const route = () => decodeURIComponent(location.hash.slice(1));
-  const tile = (href, color, inner, name, badge) =>
-    `<a class="tile" href="#${href}"><span class="ic${color === "#FFFFFF" ? " logo" : ""}" style="--c:${color}">${inner}</span><span class="tn">${esc(name)}</span>${badge ? `<span class="sts">${badge}</span>` : ""}</a>`;
+  const tipAttr = (tip) => (tip ? ` data-tip="${esc(JSON.stringify(tip))}"` : "");
+  const i18nTip = (key) => ({ fr: P.i18n.fr[key], en: P.i18n.en[key], ar: P.i18n.ar[key] });
+  const upTip = (u) => {
+    const p = u.progress == null ? "" : null;
+    const f = { fr: (n) => `Projet en cours de développement${n}`, en: (n) => `Project in development${n}`, ar: (n) => `مشروع قيد التطوير${n}` };
+    const suf = { fr: u.progress == null ? "" : ` : ${u.progress} % réalisé`, en: u.progress == null ? "" : `: ${u.progress}% complete`, ar: u.progress == null ? "" : `: أُنجز ${u.progress}%` };
+    return { fr: f.fr(suf.fr), en: f.en(suf.en), ar: f.ar(suf.ar) };
+  };
+  const tile = (href, color, inner, name, badge, tip) =>
+    `<a class="tile" href="#${href}"${tipAttr(tip)}><span class="ic${color === "#FFFFFF" ? " logo" : ""}" style="--c:${color}">${inner}</span><span class="tn">${esc(name)}</span>${badge ? `<span class="sts">${badge}</span>` : ""}</a>`;
   const icon = (a) => (a.logo ? `<img class="lg" src="${esc(a.logo)}" alt="${esc(a.name)}">` : a.icon);
   const bg = (a) => (a.logo ? "#FFFFFF" : a.color);
   const pill = (cls, text) => `<span class="st ${cls}">${cls === "done" ? "✓ " : ""}${esc(text)}</span>`;
@@ -22,11 +30,11 @@
       <p class="tag">${esc(t.homeTag)}</p>
       <div class="chips"><span class="chip">${t.w1}</span><span class="chip">${t.w2}</span><span class="chip">${t.w3}</span></div>
       <div class="tiles">
-        ${P.apps.map((a) => tile(a.id, bg(a), icon(a), a.name, pill("done", t.done) + pill(a.stage, t[a.stage]))).join("")}
-        ${P.upcoming.map((u) => tile(u.id, "#59606F", u.progress == null ? u.icon : `<span class="ring" style="--p:${u.progress}"><b>${u.progress}%</b></span>`, T(u.name, lang), pill("dev", t.inprog))).join("")}
-        ${P.works.map((w) => tile(w.id, w.color, w.icon, T(w.short, lang), pill("done", t.done))).join("")}
-        ${tile("services", "#F59E0B", "💼", t.services)}
-        ${tile("contact", "#E5584F", "✉️", t.contact)}
+        ${P.apps.map((a) => tile(a.id, bg(a), icon(a), a.name, pill("done", t.done) + pill(a.stage, t[a.stage]), a.tagline)).join("")}
+        ${P.upcoming.map((u) => tile(u.id, "#59606F", u.progress == null ? u.icon : `<span class="ring" style="--p:${u.progress}"><b>${u.progress}%</b></span>`, T(u.name, lang), pill("dev", t.inprog), upTip(u))).join("")}
+        ${P.works.map((w) => tile(w.id, w.color, w.icon, T(w.short, lang), pill("done", t.done), w.summary)).join("")}
+        ${tile("services", "#F59E0B", "💼", t.services, "", i18nTip("tipServices"))}
+        ${tile("contact", "#E5584F", "✉️", t.contact, "", i18nTip("tipContact"))}
       </div>`;
   }
 
@@ -64,7 +72,7 @@
     const s = P.services[svc];
     return `<div class="page-h"><span class="ic" style="--c:#F59E0B">💼</span><div><h1>${t.services}</h1></div></div>
       <div class="tiles">${P.services.map((x, i) => `
-        <button class="tile" data-svc="${i}"><span class="ic" style="--c:${i === svc ? "#1F2230" : "#F59E0B"}">${x.icon}</span><span class="tn">${esc(T(x.name, lang))}</span></button>`).join("")}</div>
+        <button class="tile" data-svc="${i}" data-tip="${esc(JSON.stringify(x.desc))}"><span class="ic" style="--c:${i === svc ? "#1F2230" : "#F59E0B"}">${x.icon}</span><span class="tn">${esc(T(x.name, lang))}</span></button>`).join("")}</div>
       ${s ? `<div class="panel"><h2>${esc(T(s.name, lang))}</h2><p>${esc(T(s.desc, lang))}</p></div>` : ""}
       <ol class="steps">${P.process.map((x) => `<li><b>${esc(T(x.name, lang))}</b><span>${esc(T(x.desc, lang))}</span></li>`).join("")}</ol>`;
   }
@@ -129,8 +137,35 @@
     else if (r === "contact") { html = contactView(t); name = t.contact; }
     else html = home(t);
     $("#crumb").textContent = name ? "›  " + name : "";
+    hideTip();
     $("#view").innerHTML = html;
   }
+
+
+  // Bulle d'explication au survol (ou au focus clavier) : français + arabe, et anglais en plus si le site est en anglais
+  const tipBox = document.createElement("div");
+  tipBox.className = "tipbox"; tipBox.id = "tipbox"; tipBox.setAttribute("role", "tooltip"); tipBox.hidden = true;
+  document.body.appendChild(tipBox);
+  let tipOwner = null;
+  const hideTip = () => { tipBox.hidden = true; if (tipOwner) tipOwner.removeAttribute("aria-describedby"); tipOwner = null; };
+  const showTip = (el) => {
+    let d; try { d = JSON.parse(el.dataset.tip); } catch (x) { return; }
+    const rows = [];
+    if (lang === "en" && d.en) rows.push(`<p lang="en">${esc(d.en)}</p>`);
+    if (d.fr) rows.push(`<p lang="fr">${esc(d.fr)}</p>`);
+    if (d.ar) rows.push(`<p lang="ar" dir="rtl">${esc(d.ar)}</p>`);
+    tipBox.innerHTML = rows.join("");
+    tipBox.hidden = false; tipOwner = el; el.setAttribute("aria-describedby", "tipbox");
+    const r = el.getBoundingClientRect(), w = tipBox.offsetWidth, h = tipBox.offsetHeight;
+    const left = Math.max(8, Math.min(r.left + r.width / 2 - w / 2, innerWidth - w - 8));
+    const top = r.top - h - 10 >= 8 ? r.top - h - 10 : Math.min(r.bottom + 10, innerHeight - h - 8);
+    tipBox.style.left = left + "px"; tipBox.style.top = top + "px";
+  };
+  document.addEventListener("mouseover", (e) => { const el = e.target.closest("[data-tip]"); if (el && el !== tipOwner) showTip(el); else if (!el) hideTip(); });
+  document.addEventListener("focusin", (e) => { const el = e.target.closest("[data-tip]"); if (el) showTip(el); });
+  document.addEventListener("focusout", hideTip);
+  window.addEventListener("scroll", hideTip, { passive: true });
+  window.addEventListener("hashchange", hideTip);
 
   const lb = $("#lb"), lbc = $("#lbc");
   const closeLb = () => { lb.hidden = true; lbc.innerHTML = ""; };

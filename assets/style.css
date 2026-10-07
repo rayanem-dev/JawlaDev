@@ -91,3 +91,7 @@ a:focus-visible,button:focus-visible,select:focus-visible{outline:3px solid var(
 .ic.logo{border:1px solid var(--line)}
 .ic .lg{width:68%;height:68%;object-fit:contain;position:relative;z-index:1}
 .lockup{display:flex;justify-content:center;margin:0 0 8px}.lockup img{height:150px;width:auto;mix-blend-mode:multiply}
+.tipbox{position:fixed;z-index:30;max-width:270px;background:#1F2230;color:#fff;border-radius:10px;padding:10px 13px;font-size:.88rem;line-height:1.45;box-shadow:0 10px 26px rgb(20 24 40/.3);pointer-events:none}
+.tipbox[hidden]{display:none}
+.tipbox p{margin:0}.tipbox p+p{margin-top:7px;padding-top:7px;border-top:1px solid #3B4057}
+.tipbox p[dir=rtl]{text-align:right}
