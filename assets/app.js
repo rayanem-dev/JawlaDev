@@ -12,14 +12,16 @@
 
   const route = () => decodeURIComponent(location.hash.slice(1));
   const tile = (href, color, inner, name, badge) =>
-    `<a class="tile" href="#${href}"><span class="ic" style="--c:${color}">${inner}</span><span class="tn">${esc(name)}</span>${badge ? `<span class="sts">${badge}</span>` : ""}</a>`;
+    `<a class="tile" href="#${href}"><span class="ic${color === "#FFFFFF" ? " logo" : ""}" style="--c:${color}">${inner}</span><span class="tn">${esc(name)}</span>${badge ? `<span class="sts">${badge}</span>` : ""}</a>`;
+  const icon = (a) => (a.logo ? `<img class="lg" src="${esc(a.logo)}" alt="${esc(a.name)}">` : a.icon);
+  const bg = (a) => (a.logo ? "#FFFFFF" : a.color);
   const pill = (cls, text) => `<span class="st ${cls}">${cls === "done" ? "✓ " : ""}${esc(text)}</span>`;
 
   function home(t) {
     return `<p class="tag">${esc(t.homeTag)}</p>
       <div class="chips"><span class="chip">${t.w1}</span><span class="chip">${t.w2}</span><span class="chip">${t.w3}</span></div>
       <div class="tiles">
-        ${P.apps.map((a) => tile(a.id, a.color, a.icon, a.name, pill("done", t.done) + pill(a.stage, t[a.stage]))).join("")}
+        ${P.apps.map((a) => tile(a.id, bg(a), icon(a), a.name, pill("done", t.done) + pill(a.stage, t[a.stage]))).join("")}
         ${P.upcoming.map((u) => tile(u.id, "#59606F", u.progress == null ? u.icon : `<span class="ring" style="--p:${u.progress}"><b>${u.progress}%</b></span>`, T(u.name, lang), pill("dev", t.inprog))).join("")}
         ${P.works.map((w) => tile(w.id, w.color, w.icon, T(w.short, lang), pill("done", t.done))).join("")}
         ${tile("services", "#F59E0B", "💼", t.services)}
@@ -47,7 +49,7 @@
       return `<a class="btn ghost" href="${esc(l.href)}" download>${esc(label)}</a>`;
     }).join("");
     return `<div style="--c:${a.color}">
-      <div class="page-h"><span class="ic" style="--c:${a.color}">${a.icon}</span>
+      <div class="page-h"><span class="ic${a.logo ? " logo" : ""}" style="--c:${bg(a)}">${icon(a)}</span>
         <div><h1>${esc(a.name)}</h1><p>${esc(T(a.tagline, lang))}</p><div class="strow">${pill("done", t.done)}${pill(a.stage, t[a.stage])}</div></div></div>
       <div class="acts">${open}${extra}</div>
       <ul class="pts">${a.points.map((p) => `<li>${esc(T(p, lang))}</li>`).join("")}</ul>

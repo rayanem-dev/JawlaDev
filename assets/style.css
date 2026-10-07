@@ -88,3 +88,5 @@ a:focus-visible,button:focus-visible,select:focus-visible{outline:3px solid var(
 .strow{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.strow .st{margin-top:0}
 .st.beta{background:#DCE8FB;color:#1B4F9E}.st.alpha{background:#E9E3FA;color:#4F3FA8}
 .page-h .ring b{font-size:.78rem}
+.ic.logo{border:1px solid var(--line)}
+.ic .lg{width:68%;height:68%;object-fit:contain;position:relative;z-index:1}
