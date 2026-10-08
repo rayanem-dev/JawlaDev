@@ -133,3 +133,6 @@ a:focus-visible,button:focus-visible,select:focus-visible{outline:3px solid var(
 
 .mh{font-size:1rem;margin:22px 0 8px;color:var(--muted);text-transform:uppercase;letter-spacing:.07em}
 .mail iframe{display:block;width:100%;max-width:640px;height:1400px;border:1px solid var(--line);border-radius:12px;background:#fff}
+
+.st.ver{background:#EEF0F4;color:#4B5565;border:1px solid var(--line)}
+:root[data-theme="dark"] .st.ver{background:#232733;color:#B9C0CF}

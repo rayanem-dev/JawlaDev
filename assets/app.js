@@ -12,13 +12,17 @@
   try { lang = localStorage.getItem("lang"); } catch (e) {}
   lang = lang || (navigator.language || "fr").slice(0, 2);
   if (!P.i18n[lang]) lang = "fr";
+  const cl = {};     // historique lu dans le CHANGELOG.md de l'appli (## version — AAAA-MM-JJ — titre)
   const live = {};   // versions publiées lues dans le version.json de chaque appli
   let drawer = null; // id de l'appli dont l'historique est ouvert
   const NEW_DAYS = 30;
   const items = (a) => { // versions affichées : la version en ligne (si plus récente) puis les notes connues
-    const L = live[a.id], list = (a.releases || []).slice();
-    if (L && L.version && !list.some((r) => r.version === L.version || r.version.indexOf(L.version) === 0 || L.version.indexOf(r.version) === 0))
-      list.unshift({ version: L.version, date: L.date || "", notes: L.notes || null });
+    const L = live[a.id], list = (cl[a.id] && cl[a.id].length ? cl[a.id] : (a.releases || [])).slice();
+    if (L && L.version) {
+      const k = list.findIndex((r) => r.version === L.version || r.version.indexOf(L.version) === 0 || L.version.indexOf(r.version) === 0);
+      if (k >= 0) list[k] = Object.assign({}, list[k], { version: L.version }); // la version en ligne fait foi
+      else list.unshift({ version: L.version, date: L.date || "", notes: L.notes || null });
+    }
     return list;
   };
   const isNew = (a) => { const r = items(a)[0]; if (!r) return false; const ds = r.date || (a.releases[0] || {}).date || ""; if (!/^\d{4}-\d{2}-\d{2}/.test(ds)) return false; const d = (Date.now() - Date.parse(ds.slice(0, 10))) / 864e5; return d >= -2 && d <= NEW_DAYS; };
@@ -58,8 +62,8 @@
       <p class="tag">${esc(t.homeTag)}</p>
       <div class="chips"><span class="chip">${t.w1}</span><span class="chip">${t.w2}</span><span class="chip">${t.w3}</span></div>
       <div class="tiles">
-        ${P.apps.map((a) => tile(a.id, bg(a), icon(a), a.name, pill("done", t.done) + pill(a.stage, t[a.stage]) + (isNew(a) ? `<span class="st new">${esc(t.newTag)} · ${esc(items(a)[0].version)}</span>` : ""), isNew(a) && items(a)[0].notes ? { fr: (a.tagline.fr || "") + " — " + t.newTag + " : " + (items(a)[0].notes.fr || ""), en: (a.tagline.en || "") + " — New: " + (items(a)[0].notes.en || ""), ar: (a.tagline.ar || "") + " — جديد: " + (items(a)[0].notes.ar || "") } : a.tagline)).join("")}
-        ${P.upcoming.map((u) => tile(u.id, upBg(u), upIcon(u), T(u.name, lang), pill("dev", t.inprog + (u.progress == null ? "" : " · " + u.progress + "%")), upTip(u))).join("")}
+        ${P.apps.map((a) => tile(a.id, bg(a), icon(a), a.name, pill("done", t.done) + pill(a.stage, t[a.stage]) + (items(a)[0] ? `<span class="st ${isNew(a) ? "new" : "ver"}">${isNew(a) ? esc(t.newTag) + " · " : ""}v${esc(items(a)[0].version.replace(/^v/i, ""))}</span>` : ""), isNew(a) && items(a)[0].notes ? { fr: (a.tagline.fr || "") + " — " + t.newTag + " : " + (items(a)[0].notes.fr || ""), en: (a.tagline.en || "") + " — New: " + (items(a)[0].notes.en || ""), ar: (a.tagline.ar || "") + " — جديد: " + (items(a)[0].notes.ar || "") } : a.tagline)).join("")}
+        ${P.upcoming.map((u) => tile(u.id, upBg(u), upIcon(u), T(u.name, lang), pill("dev", t.inprog + (u.progress == null ? "" : " · " + u.progress + "%")) + (live[u.id] && live[u.id].version ? `<span class="st ver">v${esc(live[u.id].version.replace(/^v/i, ""))}</span>` : ""), upTip(u))).join("")}
         ${P.works.map((w) => tile(w.id, w.color, w.icon, T(w.short, lang), pill("done", t.done), w.summary)).join("")}
         ${tile("services", "#F59E0B", "💼", t.services, "", i18nTip("tipServices"))}
         ${tile("contact", "#E5584F", "✉️", t.contact, "", i18nTip("tipContact"))}
@@ -207,6 +211,11 @@
   // Versions publiées : lecture du version.json de chaque appli (page publique, sans base de données)
   function loadFeeds() {
     [].concat(P.apps, P.upcoming).forEach((x) => {
+      if (x.changelog) fetch(x.changelog, { cache: "no-store" }).then((r) => (r.ok ? r.text() : "")).then((txt) => {
+        const out = [], re = /^## (\S+) — (\d{4}-\d{2}-\d{2}) — (.+)$/gm; let m;
+        while ((m = re.exec(txt)) && out.length < 40) { const n = m[3].trim().slice(0, 160); out.push({ version: m[1].slice(0, 40), date: m[2], notes: { fr: n, en: n, ar: n } }); }
+        if (out.length) { cl[x.id] = out; render(); }
+      }).catch(() => {});
       if (!x.feed) return;
       fetch(x.feed + "?t=" + Date.now(), { cache: "no-store" }).then((r) => (r.ok ? r.json() : null)).then((j) => {
         if (!j || typeof j.version !== "string") return;
