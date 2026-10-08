@@ -103,3 +103,4 @@ a:focus-visible,button:focus-visible,select:focus-visible{outline:3px solid var(
 :root[data-theme="dark"] .gauge{background:#2A3448}
 :root[data-theme="dark"] .ph{border-color:#3A455C}
 :root[data-theme="dark"] .tipbox{background:#2A3448}
+.ic.fill{background:transparent}.ic.fill::after{display:none}.ic.fill .lg{width:100%;height:100%;object-fit:cover;padding:0}

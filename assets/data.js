@@ -1,7 +1,7 @@
 // ====== TOUT SE MODIFIE ICI : marque, applis, projets en cours, textes ======
 window.PORTAL = {
   brand: "JawlaDev",
-  version: "2026.10.08.2",   // à augmenter à chaque livraison (affiché dans le bas de page, publié dans version.json)
+  version: "2026.10.08.3",   // à augmenter à chaque livraison (affiché dans le bas de page, publié dans version.json)
   contactPhone: "+213 670 77 97 92",      // téléphone public
   contactWhatsApp: "+213 796 08 79 02",  // WhatsApp public
   contactEmail: "rayanem@gmail.com",   // e-mail public
@@ -107,26 +107,26 @@ window.PORTAL = {
   // Applis terminées. Le code reste privé : on n'affiche que des notes de version (pas de téléchargement).
   // "url" = adresse de l'appli en ligne ; si vide, le bouton devient "Demander une démo".
   apps: [
-    { id: "coursup", stage: "alpha", color: "#6D5BD0", kind: "phone",
+    { id: "darsy", stage: "alpha", color: "#6D5BD0", logo: "assets/img/logo-darsy.png", logoFill: true, kind: "phone",
       points: [
           { fr: "Un agenda des séances pour chaque enfant", en: "A lesson calendar for each child", ar: "جدول حصص لكل طفل" },
           { fr: "Les paiements aux professeurs et ce qu'il reste à payer", en: "Teacher payments and what is left to pay", ar: "مدفوعات الأساتذة والمتبقي للدفع" },
           { fr: "Rappels automatiques dans Google Agenda", en: "Automatic reminders in Google Calendar", ar: "تذكيرات تلقائية في تقويم جوجل" },
           { fr: "S'installe sur le téléphone comme une application", en: "Installs on your phone like an app", ar: "يُثبَّت على الهاتف كتطبيق" }],
       shots: [
-          { src: "assets/img/coursup-1.jpg", alt: { fr: "Accueil : ce qu'il reste à payer", en: "Home: what is left to pay", ar: "الرئيسية: المتبقي للدفع" } },
-          { src: "assets/img/coursup-3.jpg", alt: { fr: "Dépenses par mois et par enfant", en: "Spending per month and per child", ar: "المصاريف حسب الشهر والطفل" } },
-          { src: "assets/img/coursup-4.jpg", alt: { fr: "Les séances de chaque cours", en: "The sessions of each course", ar: "حصص كل دورة" } }
+          { src: "assets/img/darsy-1.jpg", alt: { fr: "Accueil : séances de la semaine et reste à payer", en: "Home: this week's sessions and what is left to pay", ar: "الرئيسية: حصص الأسبوع والمتبقي للدفع" } },
+          { src: "assets/img/darsy-2.jpg", alt: { fr: "Les séances de chaque cours", en: "The sessions of each course", ar: "حصص كل دورة" } },
+          { src: "assets/img/darsy-3.jpg", alt: { fr: "Enregistrer un nouveau paiement", en: "Recording a new payment", ar: "تسجيل دفعة جديدة" } }
       ],
       links: [],
-      icon: "🎓", url: "https://rayanem-dev.github.io/coursup/",
-      name: "Coursup",
+      icon: "🎓", url: "https://rayanem-dev.github.io/darsy/",
+      name: "Darsy+",
       tagline: { fr: "Le suivi des cours particuliers de vos enfants", en: "Track your children's private lessons", ar: "متابعة الدروس الخصوصية لأطفالك" },
       desc: { fr: "Agenda des séances, sessions de cours, paiements aux professeurs et alertes « reste à payer », par enfant. Application installable sur téléphone.",
               en: "Lesson calendar, course sessions, teacher payments and \"left to pay\" alerts, per child. Installable on your phone.",
               ar: "جدول الحصص ودورات الدروس ومدفوعات الأساتذة وتنبيهات «المتبقي للدفع» لكل طفل. قابل للتثبيت على الهاتف." },
       releases: [
-        { version: "2026.10.04", date: "2026-10-04", notes: { fr: "Accueil : détail par enfant des paiements à prévoir et des dépenses du mois.", en: "Home: per-child detail of upcoming payments and monthly spending.", ar: "الرئيسية: تفاصيل لكل طفل للمدفوعات القادمة ومصاريف الشهر." } }
+        { version: "2026.10.10", date: "2026-10-10", notes: { fr: "Carte « Version » dans les Réglages.", en: "\"Version\" card in Settings.", ar: "بطاقة «الإصدار» في الإعدادات." } }
       ] },
     { id: "horeca", stage: "beta", color: "#1F8A70", kind: "web",
       points: [
@@ -149,9 +149,9 @@ window.PORTAL = {
               en: "Purchasing, purchase orders, stock, orders and receipts per site, cash, inventories, losses, incidents, PDF/Excel reports, manager dashboard. French and Arabic interface.",
               ar: "المشتريات وطلبيات الشراء والمخزون والطلبات والاستلام لكل موقع، الصندوق والجرد والخسائر والحوادث، تقارير PDF/Excel ولوحة قيادة للمسيّر. واجهة بالفرنسية والعربية." },
       releases: [
+        { version: "v22", date: "2026-10", notes: { fr: "Version PHP / MySQL (essai).", en: "PHP / MySQL version (trial).", ar: "نسخة PHP / MySQL (تجريبية)." } },
         { version: "v21", date: "2026-10", notes: { fr: "Démonstration complète de bout en bout.", en: "Complete end-to-end demo.", ar: "عرض تجريبي كامل من البداية إلى النهاية." } },
-        { version: "v20", date: "2026-10", notes: { fr: "Application installable sur l'écran d'accueil (PWA).", en: "Installable on the home screen (PWA).", ar: "تطبيق قابل للتثبيت على الشاشة الرئيسية." } },
-        { version: "v16", date: "2026-10", notes: { fr: "Signature électronique.", en: "Electronic signature.", ar: "التوقيع الإلكتروني." } }
+        { version: "v20", date: "2026-10", notes: { fr: "Application installable sur l'écran d'accueil (PWA).", en: "Installable on the home screen (PWA).", ar: "تطبيق قابل للتثبيت على الشاشة الرئيسية." } }
       ] },
     { id: "sijil", demo: "https://rayanem-dev.github.io/pointage-app/", stage: "beta", color: "#2A6FDB", logo: "assets/img/logo-sijil.png", kind: "web",
       points: [
@@ -174,15 +174,16 @@ window.PORTAL = {
               en: "Work/rest rotation, balances, requests (leave, certificates…), documents, attendance sheet, attachment and invoice exports in Excel and PDF. Multi-company, installable.",
               ar: "نظام المناوبة عمل/راحة، الأرصدة، الطلبات (عطل، شهادات…)، الوثائق، تصدير ورقة الحضور والملحق والفاتورة بصيغتي Excel وPDF. متعدد الشركات وقابل للتثبيت." },
       releases: [
-        { version: "3.24", date: "2026-10-04", notes: { fr: "Détection des doublons et notifications de documents fiabilisées.", en: "Duplicate detection and more reliable document notifications.", ar: "كشف التكرار وإشعارات وثائق أكثر موثوقية." } },
-        { version: "3.23", date: "2026-10-04", notes: { fr: "Connexion par utilisateur, carte Version, conversion PDF des grosses photos.", en: "Per-user login, Version card, PDF conversion of large photos.", ar: "تسجيل دخول لكل مستخدم وبطاقة الإصدار وتحويل الصور الكبيرة إلى PDF." } }
+        { version: "3.31.2", date: "2026-10-08", notes: { fr: "Page d'accueil épurée.", en: "Simplified home page.", ar: "صفحة رئيسية أبسط." } },
+        { version: "3.31.0", date: "2026-10-06", notes: { fr: "E-mails aux couleurs de Sijil.", en: "Emails in Sijil's colors.", ar: "رسائل بريد بألوان Sijil." } },
+        { version: "3.29.5", date: "2026-10-06", notes: { fr: "Dates toujours visibles dans la grille de pointage.", en: "Dates always visible in the attendance grid.", ar: "التواريخ ظاهرة دائمًا في جدول الحضور." } }
       ] }
   ],
 
   // Projets en cours de développement avec jauge (progress = 0..100)
   upcoming: [
     // progress : pourcentage d'avancement (0 à 100), ou null tant qu'il n'est pas connu
-    { id: "siradj", icon: "🚧", progress: 80, name: "Siradj", desc: null },
+    { id: "siraj", icon: "🚧", progress: 80, name: "Siraj", desc: { fr: "Gestion intelligente et simple pour les écoles de soutien : cours, séances, élèves, paiements, évaluation et calendriers partagés.", en: "Smart, simple management for tutoring schools: courses, sessions, students, payments, evaluation and shared calendars.", ar: "إدارة ذكية وبسيطة لمدارس الدعم: الدروس والحصص والتلاميذ والمدفوعات والتقييم والتقاويم المشتركة." } },
     { id: "siradj-plus", icon: "🚧", progress: 5, name: "Siradj+", desc: null }
   ],
 

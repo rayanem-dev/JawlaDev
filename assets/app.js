@@ -19,15 +19,19 @@
   const tipAttr = (tip) => (tip ? ` data-tip="${esc(JSON.stringify(tip))}"` : "");
   const i18nTip = (key) => ({ fr: P.i18n.fr[key], en: P.i18n.en[key], ar: P.i18n.ar[key] });
   const upTip = (u) => {
-    const p = u.progress == null ? "" : null;
-    const f = { fr: (n) => `Projet en cours de développement${n}`, en: (n) => `Project in development${n}`, ar: (n) => `مشروع قيد التطوير${n}` };
-    const suf = { fr: u.progress == null ? "" : ` : ${u.progress} % réalisé`, en: u.progress == null ? "" : `: ${u.progress}% complete`, ar: u.progress == null ? "" : `: أُنجز ${u.progress}%` };
-    return { fr: f.fr(suf.fr), en: f.en(suf.en), ar: f.ar(suf.ar) };
+    const base = { fr: "Projet en cours de développement", en: "Project in development", ar: "مشروع قيد التطوير" };
+    const pct = { fr: (n) => ` : ${n} % réalisé`, en: (n) => `: ${n}% complete`, ar: (n) => `: أُنجز ${n}%` };
+    const out = {};
+    ["fr", "en", "ar"].forEach((l) => {
+      const d = u.desc && u.desc[l] ? u.desc[l] + " " : "";
+      out[l] = d + "(" + base[l] + (u.progress == null ? "" : pct[l](u.progress)) + ")";
+    });
+    return out;
   };
   const tile = (href, color, inner, name, badge, tip) =>
-    `<a class="tile" href="#${href}"${tipAttr(tip)}><span class="ic${color === "#FFFFFF" ? " logo" : ""}" style="--c:${color}">${inner}</span><span class="tn">${esc(name)}</span>${badge ? `<span class="sts">${badge}</span>` : ""}</a>`;
+    `<a class="tile" href="#${href}"${tipAttr(tip)}><span class="ic${color === "#FFFFFF" ? " logo" : color === "transparent" ? " fill" : ""}" style="--c:${color}">${inner}</span><span class="tn">${esc(name)}</span>${badge ? `<span class="sts">${badge}</span>` : ""}</a>`;
   const icon = (a) => (a.logo ? `<img class="lg" src="${esc(a.logo)}" alt="${esc(a.name)}">` : a.icon);
-  const bg = (a) => (a.logo ? "#FFFFFF" : a.color);
+  const bg = (a) => (a.logo ? (a.logoFill ? "transparent" : "#FFFFFF") : a.color);
   const pill = (cls, text) => `<span class="st ${cls}">${cls === "done" ? "✓ " : ""}${esc(text)}</span>`;
 
   function home(t) {
@@ -67,7 +71,7 @@
       return `<a class="btn ghost" href="${esc(l.href)}" download>${esc(label)}</a>`;
     }).join("");
     return `<div style="--c:${a.color}">
-      <div class="page-h"><span class="ic${a.logo ? " logo" : ""}" style="--c:${bg(a)}">${icon(a)}</span>
+      <div class="page-h"><span class="ic${a.logo ? (a.logoFill ? " fill" : " logo") : ""}" style="--c:${bg(a)}">${icon(a)}</span>
         <div><h1>${esc(a.name)}</h1><p>${esc(T(a.tagline, lang))}</p><div class="strow">${pill("done", t.done)}${pill(a.stage, t[a.stage])}</div></div></div>
       <div class="acts">${open}${extra}</div>
       <ul class="pts">${a.points.map((p) => `<li>${esc(T(p, lang))}</li>`).join("")}</ul>
