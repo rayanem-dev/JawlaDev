@@ -140,7 +140,5 @@ a:focus-visible,button:focus-visible,select:focus-visible{outline:3px solid var(
 .pb li span{color:var(--muted);font-size:.92rem}
 .pitch{max-width:none}
 
-/* Bouton « Installer » (PWA) */
-.inst{margin-inline-start:auto;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:7px 14px;font:600 .88rem var(--font);cursor:pointer}
-.inst[hidden]{display:none}
-.inst:hover{border-color:var(--navy);color:var(--navy)}
+/* Bouton « Installer » (brique boutoninstaller) */
+#install{margin-inline-start:auto}
