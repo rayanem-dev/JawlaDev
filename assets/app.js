@@ -80,7 +80,8 @@
       <p class="cap">${esc(T(s.alt, lang))}</p><p class="note">${t.shotsNote}</p>`;
   }
 
-  const pitchView = (x) => !x.pitch ? "" : `<div class="pitch"><p class="lead">${esc(T(x.pitch.intro, lang))}</p>
+  const mailKey = (x) => { const M = window.MAILS || {}; return M[x.id + "-" + lang] ? x.id + "-" + lang : M[x.id + "-fr"] ? x.id + "-fr" : ""; };
+  const pitchView = (x) => mailKey(x) ? `<h2 class="mh">${P.i18n[lang].mailTitle}</h2><div class="mail" data-mail="${mailKey(x)}"></div>` : !x.pitch ? "" : `<div class="pitch"><p class="lead">${esc(T(x.pitch.intro, lang))}</p>
     <ul class="pb">${x.pitch.bullets.map((b) => `<li><b>${esc(T(b.t, lang))}</b> — ${esc(T(b.d, lang))}</li>`).join("")}</ul>
     <p class="note">${esc(T(x.pitch.outro, lang))}</p></div>`;
 
@@ -179,6 +180,14 @@
     hideTip();
     $("#view").innerHTML = html;
     drawRender();
+    document.querySelectorAll("[data-mail]").forEach((box) => {
+      const f = document.createElement("iframe");
+      f.setAttribute("sandbox", "allow-same-origin allow-popups allow-popups-to-escape-sandbox");
+      f.title = P.i18n[lang].mailTitle; f.srcdoc = window.MAILS[box.dataset.mail];
+      const fit = () => { try { f.style.height = f.contentDocument.documentElement.scrollHeight + "px"; } catch (x) {} };
+      f.addEventListener("load", () => { fit(); setTimeout(fit, 600); setTimeout(fit, 2000); });
+      box.appendChild(f);
+    });
   }
 
   // Panneau latéral « Nouveautés » : tout l'historique d'une appli

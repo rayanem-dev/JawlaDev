@@ -130,3 +130,6 @@ a:focus-visible,button:focus-visible,select:focus-visible{outline:3px solid var(
 .pb{list-style:none;padding:0;margin:0 0 10px}
 .pb li{background:var(--surface);border:1px solid var(--line);border-inline-start:4px solid var(--c,var(--amber));border-radius:10px;padding:9px 13px;margin:0 0 8px;line-height:1.5}
 .pb li b{color:var(--ink)}
+
+.mh{font-size:1rem;margin:22px 0 8px;color:var(--muted);text-transform:uppercase;letter-spacing:.07em}
+.mail iframe{display:block;width:100%;max-width:640px;height:1400px;border:1px solid var(--line);border-radius:12px;background:#fff}
