@@ -1,7 +1,7 @@
 // ====== TOUT SE MODIFIE ICI : marque, applis, projets en cours, textes ======
 window.PORTAL = {
   brand: "JawlaDev",
-  version: "2026.10.08.7",   // à augmenter à chaque livraison (affiché dans le bas de page, publié dans version.json)
+  version: "2026.10.08.8",   // à augmenter à chaque livraison (affiché dans le bas de page, publié dans version.json)
   contactPhone: "+213 670 77 97 92",      // téléphone public
   contactWhatsApp: "+213 796 08 79 02",  // WhatsApp public
   contactEmail: "rayanem@gmail.com",   // e-mail public
@@ -75,33 +75,172 @@ window.PORTAL = {
 
   // Réalisations (design + rédaction commerciale). Les visuels sont anonymisés : nom, partenaires, villes et numéro d'agrément masqués.
   works: [
-    { id: "dechets", status: "done", short: { fr: "Offre de service", en: "Service offer", ar: "عرض خدمات" }, icon: "♻️", color: "#2F7D5B", images: [
-          { src: "assets/img/work-dechets-fr-01.jpg", alt: { fr: "Couverture de l'offre en français : un camion devant un site industriel", en: "French cover of the offer: a truck in front of an industrial site", ar: "غلاف العرض بالفرنسية: شاحنة أمام موقع صناعي" } },
-          { src: "assets/img/work-dechets-fr-02.jpg", alt: { fr: "Page de présentation et d'agrément", en: "Company and license presentation page", ar: "صفحة تقديم المؤسسة والاعتماد" } },
-          { src: "assets/img/work-dechets-fr-03.jpg", alt: { fr: "Déchets pris en charge : batteries usagées, métaux ferreux et non ferreux", en: "Waste accepted: used batteries, ferrous and non-ferrous metals", ar: "النفايات المعالجة: البطاريات المستعملة والمعادن الحديدية وغير الحديدية" } },
-          { src: "assets/img/work-dechets-fr-04.jpg", alt: { fr: "Méthode de collecte en cinq étapes et filière de recyclage", en: "Five-step collection method and recycling chain", ar: "منهجية الجمع في خمس مراحل ومسار إعادة التدوير" } },
-          { src: "assets/img/work-dechets-fr-05.jpg", alt: { fr: "Moyens matériels et humains : flotte et équipe", en: "Resources: fleet and team", ar: "الوسائل المادية والبشرية: الأسطول والفريق" } },
-          { src: "assets/img/work-dechets-ar-01.jpg", alt: { fr: "Couverture de la version arabe, lecture de droite à gauche", en: "Cover of the Arabic version, right-to-left", ar: "غلاف النسخة العربية من اليمين إلى اليسار" } },
-          { src: "assets/img/work-dechets-ar-03.jpg", alt: { fr: "Page des déchets pris en charge en arabe", en: "Waste accepted page in Arabic", ar: "صفحة النفايات المعالجة بالعربية" } }
+    {
+      "id": "dechets",
+      "status": "done",
+      "short": {
+        "fr": "Offre de service",
+        "en": "Service offer",
+        "ar": "عرض خدمات"
+      },
+      "icon": "♻️",
+      "color": "#2F7D5B",
+      "images": [
+        {
+          "src": "assets/img/work-dechets-fr-01.jpg",
+          "alt": {
+            "fr": "Couverture de l'offre en français : un camion devant un site industriel",
+            "en": "French cover of the offer: a truck in front of an industrial site",
+            "ar": "غلاف العرض بالفرنسية: شاحنة أمام موقع صناعي"
+          }
+        },
+        {
+          "src": "assets/img/work-dechets-fr-02.jpg",
+          "alt": {
+            "fr": "Page de présentation et d'agrément",
+            "en": "Company and license presentation page",
+            "ar": "صفحة تقديم المؤسسة والاعتماد"
+          }
+        },
+        {
+          "src": "assets/img/work-dechets-fr-03.jpg",
+          "alt": {
+            "fr": "Déchets pris en charge : batteries usagées, métaux ferreux et non ferreux",
+            "en": "Waste accepted: used batteries, ferrous and non-ferrous metals",
+            "ar": "النفايات المعالجة: البطاريات المستعملة والمعادن الحديدية وغير الحديدية"
+          }
+        },
+        {
+          "src": "assets/img/work-dechets-fr-04.jpg",
+          "alt": {
+            "fr": "Méthode de collecte en cinq étapes et filière de recyclage",
+            "en": "Five-step collection method and recycling chain",
+            "ar": "منهجية الجمع في خمس مراحل ومسار إعادة التدوير"
+          }
+        },
+        {
+          "src": "assets/img/work-dechets-fr-05.jpg",
+          "alt": {
+            "fr": "Chantiers en images : pelles de manutention, aire de tri, chargement de ferrailles",
+            "en": "Worksites in pictures: material handlers, sorting area, scrap loading",
+            "ar": "الأوراش بالصور: رافعات المناولة ومنطقة الفرز وتحميل الخردة"
+          }
+        },
+        {
+          "src": "assets/img/work-dechets-fr-06.jpg",
+          "alt": {
+            "fr": "Moyens matériels et humains : flotte, engins et équipe",
+            "en": "Resources: fleet, machines and team",
+            "ar": "الوسائل المادية والبشرية: الأسطول والآليات والفريق"
+          }
+        },
+        {
+          "src": "assets/img/work-dechets-ar-01.jpg",
+          "alt": {
+            "fr": "Couverture de la version arabe, lecture de droite à gauche",
+            "en": "Cover of the Arabic version, right-to-left",
+            "ar": "غلاف النسخة العربية من اليمين إلى اليسار"
+          }
+        },
+        {
+          "src": "assets/img/work-dechets-ar-05.jpg",
+          "alt": {
+            "fr": "Page des chantiers en images, en arabe",
+            "en": "Worksites page in Arabic",
+            "ar": "صفحة الأوراش بالصور بالعربية"
+          }
+        }
       ],
-      title: { fr: "Offre de service pour un collecteur de déchets agréé", en: "Service offer for a licensed waste collector", ar: "عرض خدمات لجامع نفايات معتمد" },
-      sector: { fr: "Environnement · collecte de déchets spéciaux (Algérie)", en: "Environment · special waste collection (Algeria)", ar: "البيئة · جمع النفايات الخاصة (الجزائر)" },
-      badge: { fr: "Bilingue FR / AR", en: "Bilingual FR / AR", ar: "ثنائي اللغة FR / AR" },
-      summary: { fr: "Transformer des pièces administratives en une offre de service claire, rassurante et prête à joindre à un e-mail de prospection.", en: "Turning administrative papers into a clear, reassuring service offer, ready to attach to a prospecting email.", ar: "تحويل الوثائق الإدارية إلى عرض خدمات واضح ومطمئن وجاهز للإرفاق برسالة تسويقية." },
-      context: { fr: "Un collecteur de déchets agréé par le Ministère de l'Environnement et des Énergies Renouvelables voulait prospecter les compagnies pétrolières et les entreprises étrangères. Il avait un agrément, des camions et des conventions avec des unités de recyclage, mais aucun document commercial structuré.", en: "A waste collector licensed by the Ministry of Environment and Renewable Energies wanted to approach oil companies and foreign firms. It had a license, trucks and agreements with recycling units, but no structured sales document.", ar: "كان جامع نفايات معتمد من وزارة البيئة والطاقات المتجددة يرغب في التواصل مع شركات النفط والشركات الأجنبية. كان يملك الاعتماد والشاحنات واتفاقيات مع وحدات إعادة التدوير، لكن دون أي وثيقة تجارية منظمة." },
-      content: { fr: "Présentation de l'entreprise, agrément et cadre réglementaire, déchets pris en charge, méthode de collecte en cinq étapes, filière de recyclage, moyens, sécurité et traçabilité, bénéfices pour le client, contact.", en: "Company presentation, license and regulatory framework, waste accepted, five-step collection method, recycling chain, resources, safety and traceability, customer benefits, contact.", ar: "تقديم المؤسسة، الاعتماد والإطار القانوني، النفايات المعالجة، منهجية الجمع في خمس مراحل، مسار إعادة التدوير، الوسائل، السلامة والتتبع، فوائد العميل، الاتصال." },
-      deliverables: [
-          { fr: "Offre de service PDF, format A4, 8 pages, en français et en arabe", en: "Service offer PDF, A4, 8 pages, in French and Arabic", ar: "عرض خدمات PDF بحجم A4 من 8 صفحات بالفرنسية والعربية" },
-          { fr: "Présentation PowerPoint 16:9 de 14 diapositives, en français et en arabe", en: "16:9 PowerPoint presentation of 14 slides, in French and Arabic", ar: "عرض تقديمي PowerPoint بنسبة 16:9 من 14 شريحة بالفرنسية والعربية" },
-          { fr: "E-mail de présentation bilingue en HTML, prêt à envoyer", en: "Bilingual HTML introduction email, ready to send", ar: "رسالة تعريفية ثنائية اللغة بصيغة HTML جاهزة للإرسال" }
-        ],
-      design: [
-          { fr: "Charte graphique dédiée (vert profond et ambre), identique sur tous les supports", en: "Dedicated visual identity (deep green and amber), identical on every medium", ar: "هوية بصرية خاصة (أخضر داكن وعنبري) موحّدة على كل الوسائط" },
-          { fr: "Version arabe construite pour la lecture de droite à gauche, avec une typographie soignée", en: "Arabic version built for right-to-left reading, with refined typography", ar: "نسخة عربية مبنية للقراءة من اليمين إلى اليسار بخط عربي أنيق" },
-          { fr: "Illustrations vectorielles originales : site industriel, camion, batterie, lingots", en: "Original vector illustrations: industrial site, truck, battery, ingots", ar: "رسوم متجهة أصلية: موقع صناعي وشاحنة وبطارية وسبائك" },
-          { fr: "Texte rédigé uniquement à partir des documents officiels du client, sans chiffre inventé", en: "Text written only from the client's official documents, no invented figures", ar: "نص مكتوب من الوثائق الرسمية للعميل فقط دون أي رقم مخترع" },
-          { fr: "Page « Références » construite à partir de cinq attestations de bonne exécution (BTP, recyclage, commerce de métaux)", en: "\"References\" page built from five certificates of good performance (construction, recycling, metal trading)", ar: "صفحة «المراجع» مبنية على خمس شهادات حسن تنفيذ (البناء وإعادة التدوير وتجارة المعادن)" }
-        ] }
+      "title": {
+        "fr": "Offre de service et identité visuelle pour un collecteur de déchets agréé",
+        "en": "Service offer and visual identity for a licensed waste collector",
+        "ar": "عرض خدمات وهوية بصرية لجامع نفايات معتمد"
+      },
+      "sector": {
+        "fr": "Environnement · collecte de déchets spéciaux (Algérie)",
+        "en": "Environment · special waste collection (Algeria)",
+        "ar": "البيئة · جمع النفايات الخاصة (الجزائر)"
+      },
+      "badge": {
+        "fr": "Bilingue FR / AR",
+        "en": "Bilingual FR / AR",
+        "ar": "ثنائي اللغة FR / AR"
+      },
+      "summary": {
+        "fr": "Transformer des pièces administratives en une offre de service claire, rassurante et prête à joindre à un e-mail de prospection, avec une identité visuelle et une papeterie assorties.",
+        "en": "Turning administrative papers into a clear, reassuring service offer, ready to attach to a prospecting email, with matching visual identity and stationery.",
+        "ar": "تحويل الوثائق الإدارية إلى عرض خدمات واضح ومطمئن وجاهز للإرفاق برسالة تسويقية، مع هوية بصرية وقرطاسية متناسقة."
+      },
+      "context": {
+        "fr": "Un collecteur de déchets agréé par le Ministère de l'Environnement et des Énergies Renouvelables voulait prospecter les compagnies pétrolières et les entreprises étrangères. Il avait un agrément, des camions et des conventions avec des unités de recyclage, mais aucun document commercial structuré.",
+        "en": "A waste collector licensed by the Ministry of Environment and Renewable Energies wanted to approach oil companies and foreign firms. It had a license, trucks and agreements with recycling units, but no structured sales document.",
+        "ar": "كان جامع نفايات معتمد من وزارة البيئة والطاقات المتجددة يرغب في التواصل مع شركات النفط والشركات الأجنبية. كان يملك الاعتماد والشاحنات واتفاقيات مع وحدات إعادة التدوير، لكن دون أي وثيقة تجارية منظمة."
+      },
+      "content": {
+        "fr": "Présentation de l'entreprise, agrément et cadre réglementaire, déchets pris en charge, méthode de collecte en cinq étapes, filière de recyclage, moyens, sécurité et traçabilité, bénéfices pour le client, contact.",
+        "en": "Company presentation, license and regulatory framework, waste accepted, five-step collection method, recycling chain, resources, safety and traceability, customer benefits, contact.",
+        "ar": "تقديم المؤسسة، الاعتماد والإطار القانوني، النفايات المعالجة، منهجية الجمع في خمس مراحل، مسار إعادة التدوير، الوسائل، السلامة والتتبع، فوائد العميل، الاتصال."
+      },
+      "deliverables": [
+        {
+          "fr": "Offre de service PDF, format A4, 8 pages, en français et en arabe",
+          "en": "Service offer PDF, A4, 8 pages, in French and Arabic",
+          "ar": "عرض خدمات PDF بحجم A4 من 8 صفحات بالفرنسية والعربية"
+        },
+        {
+          "fr": "Présentation PowerPoint 16:9 de 14 diapositives, en français et en arabe",
+          "en": "16:9 PowerPoint presentation of 14 slides, in French and Arabic",
+          "ar": "عرض تقديمي PowerPoint بنسبة 16:9 من 14 شريحة بالفرنسية والعربية"
+        },
+        {
+          "fr": "E-mail de présentation bilingue en HTML, prêt à envoyer",
+          "en": "Bilingual HTML introduction email, ready to send",
+          "ar": "رسالة تعريفية ثنائية اللغة بصيغة HTML جاهزة للإرسال"
+        },
+        {
+          "fr": "Identité visuelle : logo décliné (horizontal en français et en arabe, empilé, icône, avatar), planche de présentation",
+          "en": "Visual identity: logo in several versions (horizontal in French and Arabic, stacked, icon, avatar), presentation board",
+          "ar": "هوية بصرية: شعار بعدة صيغ (أفقي بالفرنسية والعربية، عمودي، أيقونة، صورة رمزية) ولوحة عرض"
+        },
+        {
+          "fr": "Papeterie : cartes de visite bilingues 85 × 55 mm prêtes pour l'imprimeur, papier à en-tête A4 portrait et paysage, modèles Word",
+          "en": "Stationery: bilingual 85 × 55 mm business cards ready for the printer, A4 portrait and landscape letterhead, Word templates",
+          "ar": "القرطاسية: بطاقات زيارة ثنائية اللغة 85 × 55 مم جاهزة للطباعة، ورق مراسلة A4 عمودي وأفقي، قوالب Word"
+        }
+      ],
+      "design": [
+        {
+          "fr": "Charte graphique dédiée (vert profond et ambre), identique sur tous les supports, du logo aux documents imprimés",
+          "en": "Dedicated visual identity (deep green and amber), identical on every medium, from the logo to printed documents",
+          "ar": "هوية بصرية خاصة (أخضر داكن وعنبري) موحّدة على كل الوسائط، من الشعار إلى الوثائق المطبوعة"
+        },
+        {
+          "fr": "Logo : un symbole qui relie l'identité de l'entreprise à son métier, le recyclage",
+          "en": "Logo: a symbol linking the company's identity to its trade, recycling",
+          "ar": "الشعار: رمز يربط هوية المؤسسة بمهنتها، إعادة التدوير"
+        },
+        {
+          "fr": "Version arabe construite pour la lecture de droite à gauche, avec une typographie soignée",
+          "en": "Arabic version built for right-to-left reading, with refined typography",
+          "ar": "نسخة عربية مبنية للقراءة من اليمين إلى اليسار بخط عربي أنيق"
+        },
+        {
+          "fr": "Illustrations vectorielles originales : site industriel, camion, batterie, lingots",
+          "en": "Original vector illustrations: industrial site, truck, battery, ingots",
+          "ar": "رسوم متجهة أصلية: موقع صناعي وشاحنة وبطارية وسبائك"
+        },
+        {
+          "fr": "Texte rédigé uniquement à partir des documents officiels du client, sans chiffre inventé",
+          "en": "Text written only from the client's official documents, no invented figures",
+          "ar": "نص مكتوب من الوثائق الرسمية للعميل فقط دون أي رقم مخترع"
+        },
+        {
+          "fr": "Page « Références » construite à partir de cinq attestations de bonne exécution (BTP, recyclage, commerce de métaux)",
+          "en": "\"References\" page built from five certificates of good performance (construction, recycling, metal trading)",
+          "ar": "صفحة «المراجع» مبنية على خمس شهادات حسن تنفيذ (البناء وإعادة التدوير وتجارة المعادن)"
+        }
+      ]
+    }
   ],
 
   // Applis terminées. Le code reste privé : on n'affiche que des notes de version (pas de téléchargement).
