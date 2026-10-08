@@ -1,7 +1,7 @@
 // ====== TOUT SE MODIFIE ICI : marque, applis, projets en cours, textes ======
 window.PORTAL = {
   brand: "JawlaDev",
-  version: "2026.10.08.5",   // à augmenter à chaque livraison (affiché dans le bas de page, publié dans version.json)
+  version: "2026.10.08.6",   // à augmenter à chaque livraison (affiché dans le bas de page, publié dans version.json)
   contactPhone: "+213 670 77 97 92",      // téléphone public
   contactWhatsApp: "+213 796 08 79 02",  // WhatsApp public
   contactEmail: "rayanem@gmail.com",   // e-mail public
@@ -120,7 +120,7 @@ window.PORTAL = {
       ],
       links: [],
       icon: "🎓", url: "https://rayanem-dev.github.io/darsy/",
-      name: "Darsy+",
+      name: "Darsy+ / درسي+",
       tagline: { fr: "Le suivi des cours particuliers de vos enfants", en: "Track your children's private lessons", ar: "متابعة الدروس الخصوصية لأطفالك" },
       desc: { fr: "Agenda des séances, sessions de cours, paiements aux professeurs et alertes « reste à payer », par enfant. Application installable sur téléphone.",
               en: "Lesson calendar, course sessions, teacher payments and \"left to pay\" alerts, per child. Installable on your phone.",
@@ -168,7 +168,7 @@ window.PORTAL = {
       ],
       links: [{ href: "assets/docs/Sijil-Presentation.pptx", type: "deck" }],
       icon: "📒", url: "",
-      name: "Sijil",
+      name: "Sijil / سجل",
       tagline: { fr: "La gestion du temps de travail du personnel en rotation", en: "Working time management for rotating staff", ar: "تسيير وقت العمل للمستخدمين بنظام المناوبة" },
       desc: { fr: "Rotation travail/repos, soldes, demandes (congés, attestations…), documents, exports fiche de pointage, attachement et facture en Excel et PDF. Multi-entreprises, application installable.",
               en: "Work/rest rotation, balances, requests (leave, certificates…), documents, attendance sheet, attachment and invoice exports in Excel and PDF. Multi-company, installable.",
