@@ -184,6 +184,7 @@
     hideTip();
     $("#view").innerHTML = html;
     drawRender();
+    if (!inst.hidden) instLabel();
   }
 
   // Panneau latéral « Nouveautés » : tout l'historique d'une appli
@@ -294,6 +295,25 @@
     }, bdpOpts(lang)));
     lang = BasDePage.langue();
   } catch (e) { console.error("Bas de page indisponible :", e); }
+  // ----- installation sur l'écran d'accueil (PWA), même principe que Siraj -----
+  const inst = $("#install");
+  const standalone = matchMedia("(display-mode: standalone)").matches || navigator.standalone === true;
+  const ios = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  let deferred = null;
+  const instLabel = () => { inst.textContent = "⤓ " + P.i18n[lang].install; };
+  const showInst = () => { if (!standalone) { instLabel(); inst.hidden = false; } };
+  window.addEventListener("beforeinstallprompt", (e) => { e.preventDefault(); deferred = e; showInst(); });
+  window.addEventListener("appinstalled", () => { inst.hidden = true; deferred = null; });
+  if (ios && !standalone) showInst();
+  inst.addEventListener("click", () => {
+    if (deferred) { deferred.prompt(); deferred.userChoice.then(() => { deferred = null; inst.hidden = true; }); }
+    else if (ios) alert(P.i18n[lang].installIos);
+  });
+  window.addEventListener("hashchange", instLabel);
+  document.addEventListener("click", (e) => { if (e.target.closest(".bdp-lang,[data-lang]")) setTimeout(instLabel, 50); });
+  if ("serviceWorker" in navigator && location.protocol.indexOf("http") === 0) navigator.serviceWorker.register("sw.js").catch(() => {});
+
   render();
   loadFeeds();
+
 })();
