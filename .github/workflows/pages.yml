@@ -20,6 +20,8 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+      - name: Publier la version du site (version.json)
+        run: node -e "global.window={};require('./assets/data.js');require('fs').writeFileSync('version.json',JSON.stringify({version:window.PORTAL.version}))"
       - uses: actions/upload-pages-artifact@v3
         with:
           path: .

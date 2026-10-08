@@ -128,9 +128,7 @@
     document.documentElement.lang = lang;
     document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
     document.title = P.brand;
-    $("#brandName").innerHTML = esc(P.brand).replace(/(Dev|Tech)$/, '<span class="b2">$1</span>'); $("#brand2").textContent = P.brand;
-    $("#year").textContent = new Date().getFullYear();
-    $("#lang").value = lang;
+    $("#brandName").innerHTML = esc(P.brand).replace(/(Dev|Tech)$/, '<span class="b2">$1</span>');
     const app = P.apps.find((a) => a.id === r), up = P.upcoming.find((u) => u.id === r), wk = P.works.find((w) => w.id === r);
     let html, name = "";
     if (app) { html = appView(app, t); name = app.name; }
@@ -190,10 +188,31 @@
   });
   document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeLb(); });
   window.addEventListener("hashchange", () => { svc = -1; render(); window.scrollTo(0, 0); });
-  $("#lang").addEventListener("change", (e) => {
-    lang = e.target.value;
-    try { localStorage.setItem("lang", lang); } catch (x) {}
-    render();
-  });
+
+  // ----- bas de page (brique « basdepage » du dépôt lib, copiée telle quelle dans assets/) -----
+  const BDP_TITRES = {
+    fr: { aJour: "✓ Tout est à jour", retardServeur: "⚠ Le serveur est en retard : à déployer", retardSite: "⚠ Le site est en retard : à publier (patienter 1 à 2 minutes)", inconnu: "? Version du site illisible (fichier version.json absent ou hors ligne)", actualiser: "Relire les données depuis le serveur", langue: "Langue", theme: "Mode clair / sombre", sombre: "Mode sombre" },
+    en: { aJour: "✓ Everything is up to date", retardServeur: "⚠ The server is behind: to deploy", retardSite: "⚠ The site is behind: to publish (wait 1 to 2 minutes)", inconnu: "? Site version unreadable (version.json missing or offline)", actualiser: "Reload the page", langue: "Language", theme: "Light / dark mode", sombre: "Dark mode" },
+    ar: { aJour: "✓ كل شيء محدّث", retardServeur: "⚠ الخادم متأخر: يجب نشر التحديث", retardSite: "⚠ الموقع متأخر: قيد النشر (انتظر دقيقة إلى دقيقتين)", inconnu: "? تعذّرت قراءة إصدار الموقع (الملف غير موجود أو لا يوجد اتصال)", actualiser: "إعادة تحميل الصفحة", langue: "اللغة", theme: "الوضع الفاتح / الداكن", sombre: "الوضع الداكن" }
+  };
+  const BDP_TXT = {
+    en: { version: "version", Actualiser: "Refresh", Contact: "Contact" },
+    ar: { version: "الإصدار", Actualiser: "تحديث", Contact: "اتصل بنا" }
+  };
+  const BDP_DROITS = { fr: "Tous droits réservés", en: "All rights reserved", ar: "جميع الحقوق محفوظة" };
+  const bdpOpts = (l) => ({ titres: BDP_TITRES[l] || BDP_TITRES.fr, copyright: "© 2026 " + P.brand + " — " + (BDP_DROITS[l] || BDP_DROITS.fr) });
+  BasDePage.monter(Object.assign({
+    nom: P.brand,
+    version: P.version,
+    comparer: { urlSite: "version.json" },
+    liens: [{ label: "Contact", href: "#contact" }],
+    actualiser: () => location.reload(),
+    langue: lang,
+    theme: "light",   // clair par défaut ; la bascule du bas de page mémorise le choix
+    cle: "jd",
+    t: (s) => (BDP_TXT[lang] && BDP_TXT[lang][s]) || s,
+    surLangue: (code) => { lang = code; BasDePage.maj(bdpOpts(code)); render(); }
+  }, bdpOpts(lang)));
+  lang = BasDePage.langue();
   render();
 })();
