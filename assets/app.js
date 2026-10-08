@@ -1,5 +1,10 @@
 (function () {
   const P = window.PORTAL;
+  if (!P) {
+    const v = document.getElementById("view");
+    if (v) v.innerHTML = '<p style="padding:24px;text-align:center;line-height:1.7">Le contenu n\'a pas pu être chargé. Actualisez la page (Ctrl + F5).<br>Content could not be loaded. Please refresh the page (Ctrl + F5).<br>تعذّر تحميل المحتوى. أعد تحميل الصفحة (Ctrl + F5).</p>';
+    return;
+  }
   const $ = (s) => document.querySelector(s);
   const T = (o, l) => (o && typeof o === "object" ? o[l] || o.fr : o);
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
@@ -201,18 +206,20 @@
   };
   const BDP_DROITS = { fr: "Tous droits réservés", en: "All rights reserved", ar: "جميع الحقوق محفوظة" };
   const bdpOpts = (l) => ({ titres: BDP_TITRES[l] || BDP_TITRES.fr, copyright: "© 2026 " + P.brand + " — " + (BDP_DROITS[l] || BDP_DROITS.fr) });
-  BasDePage.monter(Object.assign({
-    nom: P.brand,
-    version: P.version,
-    comparer: { urlSite: "version.json" },
-    liens: [{ label: "Contact", href: "#contact" }],
-    actualiser: () => location.reload(),
-    langue: lang,
-    theme: "light",   // clair par défaut ; la bascule du bas de page mémorise le choix
-    cle: "jd",
-    t: (s) => (BDP_TXT[lang] && BDP_TXT[lang][s]) || s,
-    surLangue: (code) => { lang = code; BasDePage.maj(bdpOpts(code)); render(); }
-  }, bdpOpts(lang)));
-  lang = BasDePage.langue();
+  try {
+    BasDePage.monter(Object.assign({
+      nom: P.brand,
+      version: P.version,
+      comparer: { urlSite: "version.json" },
+      liens: [{ label: "Contact", href: "#contact" }],
+      actualiser: () => location.reload(),
+      langue: lang,
+      theme: "light",   // clair par défaut ; la bascule du bas de page mémorise le choix
+      cle: "jd",
+      t: (s) => (BDP_TXT[lang] && BDP_TXT[lang][s]) || s,
+      surLangue: (code) => { lang = code; BasDePage.maj(bdpOpts(code)); render(); }
+    }, bdpOpts(lang)));
+    lang = BasDePage.langue();
+  } catch (e) { console.error("Bas de page indisponible :", e); }
   render();
 })();

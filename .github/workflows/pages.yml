@@ -22,6 +22,8 @@ jobs:
       - uses: actions/checkout@v4
       - name: Publier la version du site (version.json)
         run: node -e "global.window={};require('./assets/data.js');require('fs').writeFileSync('version.json',JSON.stringify({version:window.PORTAL.version}))"
+      - name: Éviter les fichiers en cache (ajoute ?v=commit aux scripts et styles)
+        run: sed -i -E "s#(assets/[A-Za-z0-9._-]+\.(js|css))#\1?v=${GITHUB_SHA::7}#g" index.html
       - uses: actions/upload-pages-artifact@v3
         with:
           path: .
