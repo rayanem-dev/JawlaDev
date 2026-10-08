@@ -1,7 +1,7 @@
 // ====== TOUT SE MODIFIE ICI : marque, applis, projets en cours, textes ======
 window.PORTAL = {
   brand: "JawlaDev",
-  version: "2026.10.08.6",   // à augmenter à chaque livraison (affiché dans le bas de page, publié dans version.json)
+  version: "2026.10.08.7",   // à augmenter à chaque livraison (affiché dans le bas de page, publié dans version.json)
   contactPhone: "+213 670 77 97 92",      // téléphone public
   contactWhatsApp: "+213 796 08 79 02",  // WhatsApp public
   contactEmail: "rayanem@gmail.com",   // e-mail public
@@ -107,7 +107,7 @@ window.PORTAL = {
   // Applis terminées. Le code reste privé : on n'affiche que des notes de version (pas de téléchargement).
   // "url" = adresse de l'appli en ligne ; si vide, le bouton devient "Demander une démo".
   apps: [
-    { id: "darsy", stage: "alpha", color: "#6D5BD0", logo: "assets/img/logo-darsy.png", logoFill: true, kind: "phone",
+    { id: "darsy", stage: "alpha", color: "#A8603A", logo: "assets/img/logo-darsy.png", logoFill: true, kind: "phone",
       points: [
           { fr: "Un agenda des séances pour chaque enfant", en: "A lesson calendar for each child", ar: "جدول حصص لكل طفل" },
           { fr: "Les paiements aux professeurs et ce qu'il reste à payer", en: "Teacher payments and what is left to pay", ar: "مدفوعات الأساتذة والمتبقي للدفع" },
@@ -121,10 +121,8 @@ window.PORTAL = {
       links: [],
       icon: "🎓", url: "https://rayanem-dev.github.io/darsy/",
       name: "Darsy+ / درسي+",
-      tagline: { fr: "Le suivi des cours particuliers de vos enfants", en: "Track your children's private lessons", ar: "متابعة الدروس الخصوصية لأطفالك" },
-      desc: { fr: "Agenda des séances, sessions de cours, paiements aux professeurs et alertes « reste à payer », par enfant. Application installable sur téléphone.",
-              en: "Lesson calendar, course sessions, teacher payments and \"left to pay\" alerts, per child. Installable on your phone.",
-              ar: "جدول الحصص ودورات الدروس ومدفوعات الأساتذة وتنبيهات «المتبقي للدفع» لكل طفل. قابل للتثبيت على الهاتف." },
+      tagline: { fr: "Suivi des cours particuliers, des paiements et des rappels", en: "Tracking of private lessons, payments and reminders", ar: "متابعة الدروس الخصوصية والمدفوعات والتذكيرات" },
+      desc: { fr: "Suivi des cours particuliers, des paiements et des rappels", en: "Tracking of private lessons, payments and reminders", ar: "متابعة الدروس الخصوصية والمدفوعات والتذكيرات" },
       releases: [
         { version: "2026.10.10", date: "2026-10-10", notes: { fr: "Carte « Version » dans les Réglages.", en: "\"Version\" card in Settings.", ar: "بطاقة «الإصدار» في الإعدادات." } }
       ] },
