@@ -36,7 +36,7 @@
   const i18nTip = (key) => ({ fr: P.i18n.fr[key], en: P.i18n.en[key], ar: P.i18n.ar[key] });
   const upIcon = (u) => {
     if (!u.logo) return u.progress == null ? u.icon : `<span class="ring" style="--p:${u.progress}"><b>${u.progress}%</b></span>`;
-    return `<img class="lg" src="${esc(u.logo)}" alt="${esc(T(u.name, lang))}">`
+    return `<img class="lg" src="${esc(u.liveLogo || u.logo)}" data-fb="${esc(u.logo)}" alt="${esc(T(u.name, lang))}">`
       + (u.progress != null ? `<i class="pbar"><b style="width:${u.progress}%"></b></i>` : "")
       + (u.corner ? `<em class="corner">${esc(u.corner)}</em>` : "");
   };
@@ -53,7 +53,7 @@
   };
   const tile = (href, color, inner, name, badge, tip) =>
     `<a class="tile" href="#${href}"${tipAttr(tip)}><span class="ic${color === "#FFFFFF" ? " logo" : color === "transparent" ? " fill" : ""}" style="--c:${color}">${inner}</span><span class="tn">${esc(name)}</span>${badge ? `<span class="sts">${badge}</span>` : ""}</a>`;
-  const icon = (a) => (a.logo ? `<img class="lg" src="${esc(a.logo)}" alt="${esc(a.name)}">` : a.icon);
+  const icon = (a) => (a.logo ? `<img class="lg" src="${esc(a.liveLogo || a.logo)}" data-fb="${esc(a.logo)}" alt="${esc(a.name)}">` : a.icon);
   const bg = (a) => (a.logo ? (a.logoFill ? "transparent" : "#FFFFFF") : a.color);
   const pill = (cls, text) => `<span class="st ${cls}">${cls === "done" ? "✓ " : ""}${esc(text)}</span>`;
 
@@ -245,6 +245,8 @@
   window.addEventListener("scroll", hideTip, { passive: true });
   window.addEventListener("hashchange", hideTip);
 
+  // Le logo d'une appli suit son site (liveLogo) ; si l'adresse ne répond pas, on garde la copie locale
+  document.addEventListener("error", (e) => { const i = e.target; if (i && i.tagName === "IMG" && i.dataset.fb && i.getAttribute("src") !== i.dataset.fb) i.src = i.dataset.fb; }, true);
   const lb = $("#lb"), lbc = $("#lbc");
   const closeLb = () => { lb.hidden = true; lbc.innerHTML = ""; };
   document.addEventListener("click", (e) => {
