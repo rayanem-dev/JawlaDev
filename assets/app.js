@@ -80,6 +80,10 @@
       <p class="cap">${esc(T(s.alt, lang))}</p><p class="note">${t.shotsNote}</p>`;
   }
 
+  const pitchView = (x) => !x.pitch ? "" : `<div class="pitch"><p class="lead">${esc(T(x.pitch.intro, lang))}</p>
+    <ul class="pb">${x.pitch.bullets.map((b) => `<li><b>${esc(T(b.t, lang))}</b> — ${esc(T(b.d, lang))}</li>`).join("")}</ul>
+    <p class="note">${esc(T(x.pitch.outro, lang))}</p></div>`;
+
   const demoHref = (a, t) => a.demo === "whatsapp"
     ? "https://wa.me/" + P.contactWhatsApp.replace(/[^0-9]/g, "") + "?text=" + encodeURIComponent(t.demoMsg.replace("{app}", a.name))
     : a.demo;
@@ -94,7 +98,7 @@
       <div class="page-h"><span class="ic${a.logo ? (a.logoFill ? " fill" : " logo") : ""}" style="--c:${bg(a)}">${icon(a)}</span>
         <div><h1>${esc(a.name)}</h1><p>${esc(T(a.tagline, lang))}</p><div class="strow">${pill("done", t.done)}${pill(a.stage, t[a.stage])}</div></div></div>
       <div class="acts">${open}${extra}</div>
-      <ul class="pts">${a.points.map((p) => `<li>${esc(T(p, lang))}</li>`).join("")}</ul>
+      ${a.pitch ? pitchView(a) : `<ul class="pts">${a.points.map((p) => `<li>${esc(T(p, lang))}</li>`).join("")}</ul>`}
       ${shotsView(a, t)}
       ${items(a).length ? `<div class="vers"><h2>${t.news}</h2><ul>${items(a).slice(0, 3).map(vline).join("")}</ul>
         ${items(a).length > 3 || live[a.id] ? `<button class="btn ghost more" data-news="${a.id}">${t.allNews}</button>` : ""}</div>` : ""}
@@ -139,6 +143,7 @@
     return `<div class="page-h"><span class="ic${cls}" style="--c:${u.logo ? upBg(u) : "#59606F"}">${inner}</span>
       <div><h1>${esc(T(u.name, lang))}</h1>${u.desc ? `<p>${esc(T(u.desc, lang))}</p>` : ""}${pill("dev", t.upcoming)}${hasP ? ` <span class="pct-txt">${u.progress}%</span>` : ""}</div></div>
       ${hasP ? `<div class="gauge"><i style="width:${u.progress}%"></i></div>` : ""}
+      ${pitchView(u)}
       ${live[u.id] && live[u.id].version ? `<p class="livev">${t.liveVer} : <span class="vtag">${esc(live[u.id].version)}</span></p>` : ""}`;
   }
 
