@@ -110,3 +110,16 @@ a:focus-visible,button:focus-visible,select:focus-visible{outline:3px solid var(
 .pct-txt{font-weight:800;color:var(--muted);margin-inline-start:6px}
 .page-h .pbar{height:5px}
 .sts .st{white-space:nowrap}
+
+/* Nouveautés : pastille « Nouveau », bloc et panneau latéral */
+.st.new{background:#E5584F;color:#fff}
+:root[data-theme="dark"] .st.new{background:#C9443C;color:#fff}
+.vers .more{margin-top:10px}
+.livev{color:var(--muted);margin:14px 0 0}
+.drawer{position:fixed;top:0;bottom:0;inset-inline-end:0;width:min(380px,92vw);background:var(--surface);color:var(--ink);border-inline-start:1px solid var(--line);box-shadow:-8px 0 30px rgba(0,0,0,.18);z-index:60;overflow:auto;padding:16px 18px}
+.drawer[hidden]{display:none}
+[dir="rtl"] .drawer{box-shadow:8px 0 30px rgba(0,0,0,.18)}
+.drawer .dh{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px}
+.drawer .dx{border:0;background:transparent;color:inherit;font-size:1.1rem;cursor:pointer;padding:6px 10px;border-radius:8px}
+.drawer .dl{list-style:none;padding:0;margin:0}
+.drawer .dl li{padding:10px 0;border-top:1px solid var(--line);color:var(--muted)}

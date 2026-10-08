@@ -12,6 +12,18 @@
   try { lang = localStorage.getItem("lang"); } catch (e) {}
   lang = lang || (navigator.language || "fr").slice(0, 2);
   if (!P.i18n[lang]) lang = "fr";
+  const live = {};   // versions publiées lues dans le version.json de chaque appli
+  let drawer = null; // id de l'appli dont l'historique est ouvert
+  const NEW_DAYS = 30;
+  const items = (a) => { // versions affichées : la version en ligne (si plus récente) puis les notes connues
+    const L = live[a.id], list = (a.releases || []).slice();
+    if (L && L.version && !list.some((r) => r.version === L.version || r.version.indexOf(L.version) === 0 || L.version.indexOf(r.version) === 0))
+      list.unshift({ version: L.version, date: L.date || "", notes: L.notes || null });
+    return list;
+  };
+  const isNew = (a) => { const r = items(a)[0]; if (!r) return false; const ds = r.date || (a.releases[0] || {}).date || ""; if (!/^\d{4}-\d{2}-\d{2}/.test(ds)) return false; const d = (Date.now() - Date.parse(ds.slice(0, 10))) / 864e5; return d >= -2 && d <= NEW_DAYS; };
+  const note = (r) => (r.notes ? esc(T(r.notes, lang)) : "");
+  const vline = (r) => `<li><span class="vtag">${esc(r.version)}</span>${esc(r.date || "")}${r.notes ? " — " + note(r) : ""}</li>`;
   let shot = {};   // capture affichée par appli
   let svc = -1;    // service sélectionné
 
@@ -46,7 +58,7 @@
       <p class="tag">${esc(t.homeTag)}</p>
       <div class="chips"><span class="chip">${t.w1}</span><span class="chip">${t.w2}</span><span class="chip">${t.w3}</span></div>
       <div class="tiles">
-        ${P.apps.map((a) => tile(a.id, bg(a), icon(a), a.name, pill("done", t.done) + pill(a.stage, t[a.stage]), a.tagline)).join("")}
+        ${P.apps.map((a) => tile(a.id, bg(a), icon(a), a.name, pill("done", t.done) + pill(a.stage, t[a.stage]) + (isNew(a) ? `<span class="st new">${esc(t.newTag)} · ${esc(items(a)[0].version)}</span>` : ""), isNew(a) && items(a)[0].notes ? { fr: (a.tagline.fr || "") + " — " + t.newTag + " : " + (items(a)[0].notes.fr || ""), en: (a.tagline.en || "") + " — New: " + (items(a)[0].notes.en || ""), ar: (a.tagline.ar || "") + " — جديد: " + (items(a)[0].notes.ar || "") } : a.tagline)).join("")}
         ${P.upcoming.map((u) => tile(u.id, upBg(u), upIcon(u), T(u.name, lang), pill("dev", t.inprog + (u.progress == null ? "" : " · " + u.progress + "%")), upTip(u))).join("")}
         ${P.works.map((w) => tile(w.id, w.color, w.icon, T(w.short, lang), pill("done", t.done), w.summary)).join("")}
         ${tile("services", "#F59E0B", "💼", t.services, "", i18nTip("tipServices"))}
@@ -84,8 +96,8 @@
       <div class="acts">${open}${extra}</div>
       <ul class="pts">${a.points.map((p) => `<li>${esc(T(p, lang))}</li>`).join("")}</ul>
       ${shotsView(a, t)}
-      ${a.releases.length ? `<div class="vers"><h2>${t.versions}</h2><ul>${a.releases.map((r) =>
-        `<li><span class="vtag">${esc(r.version)}</span>${esc(r.date)} — ${esc(T(r.notes, lang))}</li>`).join("")}</ul></div>` : ""}
+      ${items(a).length ? `<div class="vers"><h2>${t.news}</h2><ul>${items(a).slice(0, 3).map(vline).join("")}</ul>
+        ${items(a).length > 3 || live[a.id] ? `<button class="btn ghost more" data-news="${a.id}">${t.allNews}</button>` : ""}</div>` : ""}
     </div>`;
   }
 
@@ -126,7 +138,8 @@
     const inner = u.logo ? upIcon(u) : (hasP ? `<span class="ring" style="--p:${u.progress}"><b>${u.progress}%</b></span>` : u.icon);
     return `<div class="page-h"><span class="ic${cls}" style="--c:${u.logo ? upBg(u) : "#59606F"}">${inner}</span>
       <div><h1>${esc(T(u.name, lang))}</h1>${u.desc ? `<p>${esc(T(u.desc, lang))}</p>` : ""}${pill("dev", t.upcoming)}${hasP ? ` <span class="pct-txt">${u.progress}%</span>` : ""}</div></div>
-      ${hasP ? `<div class="gauge"><i style="width:${u.progress}%"></i></div>` : ""}`;
+      ${hasP ? `<div class="gauge"><i style="width:${u.progress}%"></i></div>` : ""}
+      ${live[u.id] && live[u.id].version ? `<p class="livev">${t.liveVer} : <span class="vtag">${esc(live[u.id].version)}</span></p>` : ""}`;
   }
 
   function contactView(t) {
@@ -160,6 +173,34 @@
     $("#crumb").textContent = name ? "›  " + name : "";
     hideTip();
     $("#view").innerHTML = html;
+    drawRender();
+  }
+
+  // Panneau latéral « Nouveautés » : tout l'historique d'une appli
+  const dr = document.createElement("aside");
+  dr.className = "drawer"; dr.setAttribute("aria-label", "News"); dr.hidden = true;
+  document.body.appendChild(dr);
+  function drawRender() {
+    const a = P.apps.find((x) => x.id === drawer);
+    if (!a) { dr.hidden = true; dr.innerHTML = ""; return; }
+    const t = P.i18n[lang];
+    dr.innerHTML = `<div class="dh"><b>${esc(a.name)} — ${t.news}</b><button class="dx" data-closenews aria-label="${esc(t.close)}">✕</button></div>
+      <ul class="dl">${items(a).map(vline).join("")}</ul>`;
+    dr.hidden = false;
+  }
+  const closeNews = () => { drawer = null; drawRender(); };
+
+  // Versions publiées : lecture du version.json de chaque appli (page publique, sans base de données)
+  function loadFeeds() {
+    [].concat(P.apps, P.upcoming).forEach((x) => {
+      if (!x.feed) return;
+      fetch(x.feed + "?t=" + Date.now(), { cache: "no-store" }).then((r) => (r.ok ? r.json() : null)).then((j) => {
+        if (!j || typeof j.version !== "string") return;
+        live[x.id] = { version: j.version.slice(0, 40), date: typeof j.date === "string" ? j.date.slice(0, 10) : "",
+          notes: j.notes && typeof j.notes === "object" ? { fr: String(j.notes.fr || "").slice(0, 200), en: String(j.notes.en || "").slice(0, 200), ar: String(j.notes.ar || "").slice(0, 200) } : null };
+        render();
+      }).catch(() => {});
+    });
   }
 
 
@@ -191,6 +232,9 @@
   const lb = $("#lb"), lbc = $("#lbc");
   const closeLb = () => { lb.hidden = true; lbc.innerHTML = ""; };
   document.addEventListener("click", (e) => {
+    const nw = e.target.closest("[data-news]");
+    if (nw) { drawer = nw.dataset.news; drawRender(); return; }
+    if (e.target.closest("[data-closenews]")) { closeNews(); return; }
     const th = e.target.closest(".thumb");
     if (th) { shot[th.dataset.app] = +th.dataset.i; render(); return; }
     const sv = e.target.closest("[data-svc]");
@@ -205,8 +249,8 @@
     }
     if (e.target === lb || e.target.id === "lbx") closeLb();
   });
-  document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeLb(); });
-  window.addEventListener("hashchange", () => { svc = -1; render(); window.scrollTo(0, 0); });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") { closeLb(); closeNews(); } });
+  window.addEventListener("hashchange", () => { svc = -1; drawer = null; render(); window.scrollTo(0, 0); });
 
   // ----- bas de page (brique « basdepage » du dépôt lib, copiée telle quelle dans assets/) -----
   const BDP_TITRES = {
@@ -236,4 +280,5 @@
     lang = BasDePage.langue();
   } catch (e) { console.error("Bas de page indisponible :", e); }
   render();
+  loadFeeds();
 })();
