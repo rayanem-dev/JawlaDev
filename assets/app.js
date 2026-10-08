@@ -54,16 +54,17 @@
       </div>`;
   }
 
+  const sh = (s) => (lang === "ar" && s.srcAr) || s.src;
   function shotsView(a, t) {
     if (!a.shots.length) return "";
     if (a.kind === "phone")
       return `<div class="phones">${a.shots.map((s) => `
-        <button class="ph" data-zoom="${esc(s.src)}" aria-label="${esc(T(s.alt, lang))}"><img src="${esc(s.src)}" alt="${esc(T(s.alt, lang))}"></button>`).join("")}</div>
+        <button class="ph" data-zoom="${esc(sh(s))}" aria-label="${esc(T(s.alt, lang))}"><img src="${esc(sh(s))}" alt="${esc(T(s.alt, lang))}"></button>`).join("")}</div>
         <p class="note">${t.shotsNote}</p>`;
     const i = shot[a.id] || 0, s = a.shots[i];
-    return `<button class="viewer" data-zoom="${esc(s.src)}"><img src="${esc(s.src)}" alt="${esc(T(s.alt, lang))}"></button>
+    return `<button class="viewer" data-zoom="${esc(sh(s))}"><img src="${esc(sh(s))}" alt="${esc(T(s.alt, lang))}"></button>
       <div class="thumbs">${a.shots.map((x, k) => `
-        <button class="thumb" data-app="${a.id}" data-i="${k}" aria-current="${k === i}" aria-label="${esc(T(x.alt, lang))}"><img src="${esc(x.src)}" alt=""></button>`).join("")}</div>
+        <button class="thumb" data-app="${a.id}" data-i="${k}" aria-current="${k === i}" aria-label="${esc(T(x.alt, lang))}"><img src="${esc(sh(x))}" alt=""></button>`).join("")}</div>
       <p class="cap">${esc(T(s.alt, lang))}</p><p class="note">${t.shotsNote}</p>`;
   }
 

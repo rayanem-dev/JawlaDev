@@ -1,7 +1,7 @@
 // ====== TOUT SE MODIFIE ICI : marque, applis, projets en cours, textes ======
 window.PORTAL = {
   brand: "JawlaDev",
-  version: "2026.10.08.8",   // à augmenter à chaque livraison (affiché dans le bas de page, publié dans version.json)
+  version: "2026.10.08.9",   // à augmenter à chaque livraison (affiché dans le bas de page, publié dans version.json)
   contactPhone: "+213 670 77 97 92",      // téléphone public
   contactWhatsApp: "+213 796 08 79 02",  // WhatsApp public
   contactEmail: "rayanem@gmail.com",   // e-mail public
@@ -253,9 +253,9 @@ window.PORTAL = {
           { fr: "Rappels automatiques dans Google Agenda", en: "Automatic reminders in Google Calendar", ar: "تذكيرات تلقائية في تقويم جوجل" },
           { fr: "S'installe sur le téléphone comme une application", en: "Installs on your phone like an app", ar: "يُثبَّت على الهاتف كتطبيق" }],
       shots: [
-          { src: "assets/img/darsy-1.jpg", alt: { fr: "Accueil : séances de la semaine et reste à payer", en: "Home: this week's sessions and what is left to pay", ar: "الرئيسية: حصص الأسبوع والمتبقي للدفع" } },
-          { src: "assets/img/darsy-2.jpg", alt: { fr: "Les séances de chaque cours", en: "The sessions of each course", ar: "حصص كل دورة" } },
-          { src: "assets/img/darsy-3.jpg", alt: { fr: "Enregistrer un nouveau paiement", en: "Recording a new payment", ar: "تسجيل دفعة جديدة" } }
+          { src: "assets/img/darsy-1.jpg", srcAr: "assets/img/darsy-ar-1.jpg", alt: { fr: "Accueil : séances de la semaine et reste à payer", en: "Home: this week's sessions and what is left to pay", ar: "الرئيسية: حصص الأسبوع والمتبقي للدفع" } },
+          { src: "assets/img/darsy-2.jpg", srcAr: "assets/img/darsy-ar-2.jpg", alt: { fr: "Les séances de chaque cours", en: "The sessions of each course", ar: "حصص كل دورة" } },
+          { src: "assets/img/darsy-3.jpg", srcAr: "assets/img/darsy-ar-3.jpg", alt: { fr: "Enregistrer un nouveau paiement", en: "Recording a new payment", ar: "تسجيل دفعة جديدة" } }
       ],
       links: [],
       icon: "🎓", url: "https://rayanem-dev.github.io/darsy/",
