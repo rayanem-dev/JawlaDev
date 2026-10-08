@@ -51,8 +51,12 @@
       <p class="cap">${esc(T(s.alt, lang))}</p><p class="note">${t.shotsNote}</p>`;
   }
 
+  const demoHref = (a, t) => a.demo === "whatsapp"
+    ? "https://wa.me/" + P.contactWhatsApp.replace(/[^0-9]/g, "") + "?text=" + encodeURIComponent(t.demoMsg.replace("{app}", a.name))
+    : a.demo;
+
   function appView(a, t) {
-    const open = a.url ? `<a class="btn" href="${esc(a.url)}">${t.open}</a>` : `<a class="btn" href="#contact">${t.demo}</a>`;
+    const open = a.url ? `<a class="btn" href="${esc(a.url)}">${t.open}</a>` : a.demo ? `<a class="btn" href="${esc(demoHref(a, t))}" target="_blank" rel="noopener">${t.demo}</a>` : `<a class="btn" href="#contact">${t.demo}</a>`;
     const extra = a.links.map((l) => {
       const label = l.label ? T(l.label, lang) : (l.type === "deck" ? t.l_deck : t.l_manual);
       return `<a class="btn ghost" href="${esc(l.href)}" download>${esc(label)}</a>`;
