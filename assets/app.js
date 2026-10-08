@@ -18,6 +18,13 @@
   const route = () => decodeURIComponent(location.hash.slice(1));
   const tipAttr = (tip) => (tip ? ` data-tip="${esc(JSON.stringify(tip))}"` : "");
   const i18nTip = (key) => ({ fr: P.i18n.fr[key], en: P.i18n.en[key], ar: P.i18n.ar[key] });
+  const upIcon = (u) => {
+    if (!u.logo) return u.progress == null ? u.icon : `<span class="ring" style="--p:${u.progress}"><b>${u.progress}%</b></span>`;
+    return `<img class="lg" src="${esc(u.logo)}" alt="${esc(T(u.name, lang))}">`
+      + (u.progress != null ? `<i class="pbar"><b style="width:${u.progress}%"></b></i>` : "")
+      + (u.corner ? `<em class="corner">${esc(u.corner)}</em>` : "");
+  };
+  const upBg = (u) => (u.logo ? (u.logoFill ? "transparent" : "#FFFFFF") : "#59606F");
   const upTip = (u) => {
     const base = { fr: "Projet en cours de développement", en: "Project in development", ar: "مشروع قيد التطوير" };
     const pct = { fr: (n) => ` : ${n} % réalisé`, en: (n) => `: ${n}% complete`, ar: (n) => `: أُنجز ${n}%` };
@@ -40,7 +47,7 @@
       <div class="chips"><span class="chip">${t.w1}</span><span class="chip">${t.w2}</span><span class="chip">${t.w3}</span></div>
       <div class="tiles">
         ${P.apps.map((a) => tile(a.id, bg(a), icon(a), a.name, pill("done", t.done) + pill(a.stage, t[a.stage]), a.tagline)).join("")}
-        ${P.upcoming.map((u) => tile(u.id, "#59606F", u.progress == null ? u.icon : `<span class="ring" style="--p:${u.progress}"><b>${u.progress}%</b></span>`, T(u.name, lang), pill("dev", t.inprog), upTip(u))).join("")}
+        ${P.upcoming.map((u) => tile(u.id, upBg(u), upIcon(u), T(u.name, lang), pill("dev", t.inprog + (u.progress == null ? "" : " · " + u.progress + "%")), upTip(u))).join("")}
         ${P.works.map((w) => tile(w.id, w.color, w.icon, T(w.short, lang), pill("done", t.done), w.summary)).join("")}
         ${tile("services", "#F59E0B", "💼", t.services, "", i18nTip("tipServices"))}
         ${tile("contact", "#E5584F", "✉️", t.contact, "", i18nTip("tipContact"))}
@@ -114,8 +121,10 @@
 
   function upView(u, t) {
     const hasP = u.progress != null;
-    return `<div class="page-h"><span class="ic soon">${hasP ? `<span class="ring" style="--p:${u.progress}"><b>${u.progress}%</b></span>` : u.icon}</span>
-      <div><h1>${esc(T(u.name, lang))}</h1>${u.desc ? `<p>${esc(T(u.desc, lang))}</p>` : ""}${pill("dev", t.upcoming)}</div></div>
+    const cls = u.logo ? (u.logoFill ? " fill" : " logo") : " soon";
+    const inner = u.logo ? upIcon(u) : (hasP ? `<span class="ring" style="--p:${u.progress}"><b>${u.progress}%</b></span>` : u.icon);
+    return `<div class="page-h"><span class="ic${cls}" style="--c:${u.logo ? upBg(u) : "#59606F"}">${inner}</span>
+      <div><h1>${esc(T(u.name, lang))}</h1>${u.desc ? `<p>${esc(T(u.desc, lang))}</p>` : ""}${pill("dev", t.upcoming)}${hasP ? ` <span class="pct-txt">${u.progress}%</span>` : ""}</div></div>
       ${hasP ? `<div class="gauge"><i style="width:${u.progress}%"></i></div>` : ""}`;
   }
 

@@ -1,7 +1,7 @@
 // ====== TOUT SE MODIFIE ICI : marque, applis, projets en cours, textes ======
 window.PORTAL = {
   brand: "JawlaDev",
-  version: "2026.10.08.3",   // à augmenter à chaque livraison (affiché dans le bas de page, publié dans version.json)
+  version: "2026.10.08.4",   // à augmenter à chaque livraison (affiché dans le bas de page, publié dans version.json)
   contactPhone: "+213 670 77 97 92",      // téléphone public
   contactWhatsApp: "+213 796 08 79 02",  // WhatsApp public
   contactEmail: "rayanem@gmail.com",   // e-mail public
@@ -183,8 +183,8 @@ window.PORTAL = {
   // Projets en cours de développement avec jauge (progress = 0..100)
   upcoming: [
     // progress : pourcentage d'avancement (0 à 100), ou null tant qu'il n'est pas connu
-    { id: "siraj", icon: "🚧", progress: 80, name: "Siraj", desc: { fr: "Gestion intelligente et simple pour les écoles de soutien : cours, séances, élèves, paiements, évaluation et calendriers partagés.", en: "Smart, simple management for tutoring schools: courses, sessions, students, payments, evaluation and shared calendars.", ar: "إدارة ذكية وبسيطة لمدارس الدعم: الدروس والحصص والتلاميذ والمدفوعات والتقييم والتقاويم المشتركة." } },
-    { id: "siradj-plus", icon: "🚧", progress: 5, name: "Siradj+", desc: null }
+    { id: "siraj", icon: "🚧", logo: "assets/img/logo-siraj.png", logoFill: true, progress: 80, name: "Siraj", desc: { fr: "Gestion intelligente et simple pour les écoles de soutien : cours, séances, élèves, paiements, évaluation et calendriers partagés.", en: "Smart, simple management for tutoring schools: courses, sessions, students, payments, evaluation and shared calendars.", ar: "إدارة ذكية وبسيطة لمدارس الدعم: الدروس والحصص والتلاميذ والمدفوعات والتقييم والتقاويم المشتركة." } },
+    { id: "siraj-pro", icon: "🚧", logo: "assets/img/logo-siraj.png", logoFill: true, corner: "PRO", progress: 5, name: "Siraj Pro", desc: null }
   ],
 
   i18n: {
