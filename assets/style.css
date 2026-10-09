@@ -133,12 +133,11 @@ a:focus-visible,button:focus-visible,select:focus-visible{outline:3px solid var(
 
 .mh{font-size:1rem;margin:22px 0 8px;color:var(--muted);text-transform:uppercase;letter-spacing:.07em}
 .pitch .mh{margin-top:18px}
-.pb{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}
-.pb li{margin:0;display:flex;flex-direction:column;gap:3px;padding:12px 14px}
-.pb li b{font-size:1rem;color:var(--ink)}
-.pb li b::before{content:"✓";display:inline-block;margin-inline-end:7px;color:var(--c,var(--amber))}
-.pb li span{color:var(--muted);font-size:.92rem}
+.pg-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:12px;margin:14px 0 10px}
+.pgc{background:var(--surface);border:1px solid var(--line);border-inline-start:4px solid var(--c,var(--amber));border-radius:12px;padding:12px 14px}
+.pgc h3{margin:0 0 6px;font-size:1rem;color:var(--ink)}
+.pgc ul{list-style:none;margin:0;padding:0}
+.pgc li{position:relative;padding:4px 0;padding-inline-start:20px;font-size:.92rem;color:var(--muted);line-height:1.45}
+.pgc li::before{content:"✓";position:absolute;inset-inline-start:0;top:4px;color:var(--c,var(--amber));font-weight:700}
 .pitch{max-width:none}
-
-/* Bouton « Installer » (brique boutoninstaller) */
 #install{margin-inline-start:auto}

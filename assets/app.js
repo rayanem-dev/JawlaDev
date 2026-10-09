@@ -27,7 +27,7 @@
   };
   const isNew = (a) => { const r = items(a)[0]; if (!r) return false; const ds = r.date || (a.releases[0] || {}).date || ""; if (!/^\d{4}-\d{2}-\d{2}/.test(ds)) return false; const d = (Date.now() - Date.parse(ds.slice(0, 10))) / 864e5; return d >= -2 && d <= NEW_DAYS; };
   const note = (r) => (r.notes ? esc(T(r.notes, lang)) : "");
-  const vline = (r) => `<li><span class="vtag">${esc(r.version)}</span>${esc(r.date || "")}${r.notes ? " — " + note(r) : ""}</li>`;
+  const vline = (r) => `<li><span class="vtag">${esc(r.version)}</span></li>`;
   let shot = {};   // capture affichée par appli
   let svc = -1;    // service sélectionné
 
@@ -62,7 +62,7 @@
       <p class="tag">${esc(t.homeTag)}</p>
       <div class="chips"><span class="chip">${t.w1}</span><span class="chip">${t.w2}</span><span class="chip">${t.w3}</span></div>
       <div class="tiles">
-        ${P.apps.map((a) => tile(a.id, bg(a), icon(a), a.name, pill("done", t.done) + pill(a.stage, t[a.stage]) + (items(a)[0] ? `<span class="st ${isNew(a) ? "new" : "ver"}">${isNew(a) ? esc(t.newTag) + " · " : ""}v${esc(items(a)[0].version.replace(/^v/i, ""))}</span>` : ""), isNew(a) && items(a)[0].notes ? { fr: (a.tagline.fr || "") + " — " + t.newTag + " : " + (items(a)[0].notes.fr || ""), en: (a.tagline.en || "") + " — New: " + (items(a)[0].notes.en || ""), ar: (a.tagline.ar || "") + " — جديد: " + (items(a)[0].notes.ar || "") } : a.tagline)).join("")}
+        ${P.apps.map((a) => tile(a.id, bg(a), icon(a), a.name, pill("done", t.done) + pill(a.stage, t[a.stage]) + (items(a)[0] ? `<span class="st ${isNew(a) ? "new" : "ver"}">${isNew(a) ? esc(t.newTag) + " · " : ""}v${esc(items(a)[0].version.replace(/^v/i, ""))}</span>` : ""), a.tagline)).join("")}
         ${P.upcoming.map((u) => tile(u.id, upBg(u), upIcon(u), T(u.name, lang), pill("dev", t.inprog + (u.progress == null ? "" : " · " + u.progress + "%")) + (live[u.id] && live[u.id].version ? `<span class="st ver">v${esc(live[u.id].version.replace(/^v/i, ""))}</span>` : ""), upTip(u))).join("")}
         ${P.works.map((w) => tile(w.id, w.color, w.icon, T(w.short, lang), pill("done", t.done), w.summary)).join("")}
         ${tile("services", "#F59E0B", "💼", t.services, "", i18nTip("tipServices"))}
@@ -86,7 +86,7 @@
 
   const pitchView = (x) => !x.pitch ? "" : `<div class="pitch"><h2 class="mh">${P.i18n[lang].mailTitle}</h2>
     <p class="lead">${esc(T(x.pitch.intro, lang))}</p>
-    <ul class="pb">${x.pitch.bullets.map((b) => `<li><b>${esc(T(b.t, lang))}</b><span>${esc(T(b.d, lang))}</span></li>`).join("")}</ul>
+    <div class="pg-grid">${x.pitch.groups.map((g) => `<section class="pgc"><h3>${esc(T(g.t, lang))}</h3><ul>${g.items.map((it) => `<li>${esc(T(it, lang))}</li>`).join("")}</ul></section>`).join("")}</div>
     <p class="note">${esc(T(x.pitch.outro, lang))}</p></div>`;
 
   const demoHref = (a, t) => a.demo === "whatsapp"
@@ -148,7 +148,9 @@
     return `<div class="page-h"><span class="ic${cls}" style="--c:${u.logo ? upBg(u) : "#59606F"}">${inner}</span>
       <div><h1>${esc(T(u.name, lang))}</h1>${u.desc ? `<p>${esc(T(u.desc, lang))}</p>` : ""}${pill("dev", t.upcoming)}${hasP ? ` <span class="pct-txt">${u.progress}%</span>` : ""}</div></div>
       ${hasP ? `<div class="gauge"><i style="width:${u.progress}%"></i></div>` : ""}
+      ${(u.links || []).length ? `<div class="acts">${u.links.map((l) => `<a class="btn ghost" href="${esc(l.href)}" download>${esc(l.label ? T(l.label, lang) : (l.type === "deck" ? t.l_deck : t.l_manual))}</a>`).join("")}</div>` : ""}
       ${pitchView(u)}
+      ${(u.shots || []).length ? shotsView(u, t) : ""}
       ${live[u.id] && live[u.id].version ? `<p class="livev">${t.liveVer} : <span class="vtag">${esc(live[u.id].version)}</span></p>` : ""}`;
   }
 
