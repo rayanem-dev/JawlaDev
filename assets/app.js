@@ -16,10 +16,15 @@
   const live = {};   // versions publiées lues dans le version.json de chaque appli
   let drawer = null; // id de l'appli dont l'historique est ouvert
   const NEW_DAYS = 30;
-  const items = (a) => { // versions affichées : la version en ligne (si plus récente) puis les notes connues
-    const L = live[a.id], list = (cl[a.id] && cl[a.id].length ? cl[a.id] : (a.releases || [])).slice();
+  const vkey = (v) => String(v).replace(/^v/i, "").split(/[.\-]/).map((x) => parseInt(x, 10) || 0);
+  const vcmp = (x, y) => { const p = vkey(y.version), q = vkey(x.version); for (let k = 0; k < Math.max(p.length, q.length); k++) { const d = (p[k] || 0) - (q[k] || 0); if (d) return d; } return 0; };
+  const same = (x, y) => x === y || x.indexOf(y) === 0 || y.indexOf(x) === 0;
+  const items = (a) => { // versions : textes simples écrits dans data.js d'abord, puis historique et version en ligne de l'appli
+    const L = live[a.id], list = (a.releases || []).slice();
+    (cl[a.id] || []).forEach((c) => { if (!list.some((r) => same(r.version, c.version))) list.push(c); });
+    list.sort(vcmp);
     if (L && L.version) {
-      const k = list.findIndex((r) => r.version === L.version || r.version.indexOf(L.version) === 0 || L.version.indexOf(r.version) === 0);
+      const k = list.findIndex((r) => same(r.version, L.version));
       if (k >= 0) list[k] = Object.assign({}, list[k], { version: L.version }); // la version en ligne fait foi
       else list.unshift({ version: L.version, date: L.date || "", notes: L.notes || null });
     }
@@ -27,7 +32,7 @@
   };
   const isNew = (a) => { const r = items(a)[0]; if (!r) return false; const ds = r.date || (a.releases[0] || {}).date || ""; if (!/^\d{4}-\d{2}-\d{2}/.test(ds)) return false; const d = (Date.now() - Date.parse(ds.slice(0, 10))) / 864e5; return d >= -2 && d <= NEW_DAYS; };
   const note = (r) => (r.notes ? esc(T(r.notes, lang)) : "");
-  const vline = (r) => `<li><span class="vtag">${esc(r.version)}</span></li>`;
+  const vline = (r) => `<li><span class="vtag">${esc(r.version)}</span>${r.notes ? " " + note(r) : ""}</li>`;
   let shot = {};   // capture affichée par appli
   let svc = -1;    // service sélectionné
 
@@ -93,6 +98,9 @@
     ? "https://wa.me/" + P.contactWhatsApp.replace(/[^0-9]/g, "") + "?text=" + encodeURIComponent(t.demoMsg.replace("{app}", a.name))
     : a.demo;
 
+  const versBlock = (a, t) => items(a).length ? `<div class="vers"><h2>${t.news}</h2><ul>${items(a).slice(0, 3).map(vline).join("")}</ul>
+    ${items(a).length > 3 ? `<button class="btn ghost more" data-news="${a.id}">${t.allNews}</button>` : ""}</div>` : "";
+
   function appView(a, t) {
     const open = a.url ? `<a class="btn" href="${esc(a.url)}">${t.open}</a>` : a.demo ? `<a class="btn" href="${esc(demoHref(a, t))}" target="_blank" rel="noopener">${t.demo}</a>` : `<a class="btn" href="#contact">${t.demo}</a>`;
     const extra = a.links.map((l) => {
@@ -105,8 +113,7 @@
       <div class="acts">${open}${extra}</div>
       ${a.pitch ? pitchView(a) : `<ul class="pts">${a.points.map((p) => `<li>${esc(T(p, lang))}</li>`).join("")}</ul>`}
       ${shotsView(a, t)}
-      ${items(a).length ? `<div class="vers"><h2>${t.news}</h2><ul>${items(a).slice(0, 3).map(vline).join("")}</ul>
-        ${items(a).length > 3 || live[a.id] ? `<button class="btn ghost more" data-news="${a.id}">${t.allNews}</button>` : ""}</div>` : ""}
+      ${versBlock(a, t)}
     </div>`;
   }
 
@@ -151,7 +158,7 @@
       ${(u.links || []).length ? `<div class="acts">${u.links.map((l) => `<a class="btn ghost" href="${esc(l.href)}" download>${esc(l.label ? T(l.label, lang) : (l.type === "deck" ? t.l_deck : t.l_manual))}</a>`).join("")}</div>` : ""}
       ${pitchView(u)}
       ${(u.shots || []).length ? shotsView(u, t) : ""}
-      ${live[u.id] && live[u.id].version ? `<p class="livev">${t.liveVer} : <span class="vtag">${esc(live[u.id].version)}</span></p>` : ""}`;
+      ${versBlock(u, t)}`;
   }
 
   function contactView(t) {
@@ -194,7 +201,7 @@
   dr.className = "drawer"; dr.setAttribute("aria-label", "News"); dr.hidden = true;
   document.body.appendChild(dr);
   function drawRender() {
-    const a = P.apps.find((x) => x.id === drawer);
+    const a = P.apps.concat(P.upcoming).find((x) => x.id === drawer);
     if (!a) { dr.hidden = true; dr.innerHTML = ""; return; }
     const t = P.i18n[lang];
     dr.innerHTML = `<div class="dh"><b>${esc(a.name)} — ${t.news}</b><button class="dx" data-closenews aria-label="${esc(t.close)}">✕</button></div>
