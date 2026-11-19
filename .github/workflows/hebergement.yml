@@ -1,0 +1,35 @@
+name: Deploy to jawladev.com (FTPS)
+# Envoie le site sur l'hébergement de jawladev.com à chaque push sur la branche par défaut.
+# Identifiants à saisir dans GitHub → Settings → Secrets and variables → Actions :
+#   Secrets   : FTP_USERNAME, FTP_PASSWORD
+#   Variables : FTP_DIR (facultatif, dossier web sur le serveur ; './' par défaut)
+on:
+  push:
+    branches: [claude/portail-apps-releases-4yiztm]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: ftp-deploy
+  cancel-in-progress: false
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Préparer le site (mêmes étapes que le workflow GitHub Pages)
+        run: |
+          mkdir _site
+          git archive HEAD | tar -x -C _site
+          rm -rf _site/.github _site/README.md
+          node -e "global.window={};require('./assets/data.js');require('fs').writeFileSync('_site/version.json',JSON.stringify({version:window.PORTAL.version}))"
+          sed -i -E "s#(assets/[A-Za-z0-9._-]+\.(js|css))#\1?v=${GITHUB_SHA::7}#g" _site/index.html
+      - name: Envoyer sur l'hébergement
+        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
+        with:
+          server: ftps2.fi.cloudlogin.co
+          protocol: ftps   # TLS explicite, port 21 ; si le serveur exige le TLS implicite : ftps-legacy
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./_site/
+          server-dir: ${{ vars.FTP_DIR || './' }}
