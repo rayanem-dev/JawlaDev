@@ -1,0 +1,19 @@
+# JawlaDev : réglages pour un hébergement Apache / LiteSpeed (cPanel). Ignoré par GitHub Pages.
+
+# HTTPS obligatoire et domaine sans « www ».
+# À activer seulement quand le certificat SSL du domaine est actif (AutoSSL / Let's Encrypt dans cPanel).
+RewriteEngine On
+RewriteCond %{HTTPS} off [OR]
+RewriteCond %{HTTP_HOST} ^www\. [NC]
+RewriteRule ^ https://jawladev.com%{REQUEST_URI} [L,R=301]
+
+# Toujours relire la page, le service worker, le manifeste et la version
+# (le site compare version.json pour afficher « à jour » ou « à publier »).
+<IfModule mod_headers.c>
+  <FilesMatch "^(index\.html|sw\.js|version\.json|manifest\.json)$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+</IfModule>
+
+# Pas de listing de dossiers.
+Options -Indexes
